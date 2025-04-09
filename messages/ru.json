@@ -1,0 +1,21 @@
+{
+    "HomePage": {
+      "title": "Войти",
+      "registration": "Регистрация"
+    },
+
+    "SignInForm":{
+      "signIn": "Войти",
+      "password": "Пароль",
+      "email": "Электронная почта"
+    },
+
+    "RegistrationForm":{
+      "register": "Зарегистрироваться"
+    },
+
+    "LocaleSwitcher": {
+      "label": "Change language",
+      "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
+    }
+  }

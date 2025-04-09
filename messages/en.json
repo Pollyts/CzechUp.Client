@@ -1,0 +1,20 @@
+{
+    "HomePage": {
+      "title": "Sing in",
+      "registration": "Registration"      
+    },
+
+    "SignInForm":{
+      "signIn": "Sing in",
+      "password": "Password",
+      "email": "Email"
+    },
+
+    "RegistrationForm":{
+      "register": "Register"
+    },
+    "LocaleSwitcher": {
+      "label": "Change language",
+      "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
+    }
+  }

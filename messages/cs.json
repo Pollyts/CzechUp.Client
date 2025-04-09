@@ -1,0 +1,21 @@
+{
+    "HomePage": {
+      "title": "Přihlasit se",
+      "registration": "Registrace"
+    },
+
+    "SignInForm":{
+      "signIn": "Přihlasit se",
+      "password": "Heslo",
+      "email": "Elektronická pošta"
+    },
+
+    "RegistrationForm":{
+      "register": "Zaregistrovat se"
+    },
+
+    "LocaleSwitcher": {
+      "label": "Change language",
+      "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
+    }
+  }
