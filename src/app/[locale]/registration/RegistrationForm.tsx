@@ -53,22 +53,19 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
   };
 
   return (
-    <div className="bg-slate-850">
-      <nav className="container flex justify-between p-2 ml-10 text-white">
-        <LocaleSwitcher />
-      </nav>
+    <div>
       <div className="flex flex-col items-center justify-center">
         <div className="p-6 flex flex-col items-center justify-center">
           <h1 className="text-2xl font-bold text-green mb-4">{t('title')}</h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="max-w-md mx-auto space-y-4 bg-white p-6 rounded-lg shadow-lg"
+            className="max-w-md mx-auto space-y-4 p-6 rounded-lg shadow-lg"
           >
 
             <input
               type="email"
               {...register("Email", { required: "Email is required" })}
-              placeholder="Email"
+              placeholder={t('email')}
               className="w-full p-2 border rounded-lg"
             />
             {errors.Email && <p className="text-red-600 text-sm">{errors.Email.message}</p>}
@@ -76,7 +73,7 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
             <input
               type="password"
               {...register("Password", { required: "Password is required" })}
-              placeholder="Password"
+              placeholder={t('password')}
               className="w-full p-2 border rounded-lg"
             />
             {errors.Password && <p className="text-red-600 text-sm">{errors.Password.message}</p>}
@@ -87,7 +84,7 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
               })}
               className="w-full p-2 border rounded-lg"
             >
-              <option value="">Choose Language Level</option>
+              <option value="">{t('langlevel')}</option>
               {languageLevels.map((level) => (
                 <option key={level.guid} value={level.guid}>  {/* Используем guid */}
                   {level.name}
@@ -104,7 +101,7 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
               })}
               className="w-full p-2 border rounded-lg"
             >
-              <option value="">Choose Language</option>
+              <option value="">{t('origlang')}</option>
               {languages
                 .filter((lang) => lang.name !== "CZ")
                 .map((lang) => (
@@ -122,7 +119,7 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
               disabled={loading}
               className="w-full p-2 bg-black text-white rounded-lg hover:bg-green transition"
             >
-              {loading ? "Registering..." : "Register"}
+              {loading ? "Registering..." : t('register')}
             </button>
           </form>
         </div>

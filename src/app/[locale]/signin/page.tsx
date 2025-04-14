@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {useTranslations} from 'next-intl';
+import { Link } from '../../../i18n/navigation';
 
 export default function LoginForm() {
   const t = useTranslations('SignInForm');
@@ -39,8 +40,9 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="max-w-sm mx-auto p-6 shadow-md rounded-lg">
+    <div className="max-w-sm mx-auto p-6 shadow-md rounded-lg mt-10">
           {error && <p className="text-red-500">{error}</p>}
+          <h1 className="text-2xl font-bold text-green mb-4">{t('signIn')}</h1>
           <form onSubmit={handleLogin}>
             <input
               value={Email}
@@ -64,6 +66,7 @@ export default function LoginForm() {
               {t('signIn')}
             </button>
           </form>
+          <Link className="text-l font-bold text-green mb-4" href="/registration">{t('registration')}</Link>
     </div>
   );
 }

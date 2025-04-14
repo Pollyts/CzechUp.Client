@@ -1,21 +1,40 @@
 {
-    "HomePage": {
-      "title": "Přihlasit se",
-      "registration": "Registrace"
-    },
-
     "SignInForm":{
       "signIn": "Přihlasit se",
       "password": "Heslo",
-      "email": "Elektronická pošta"
+      "email": "Elektronická pošta",
+      "registration": "Registrace"
     },
 
     "RegistrationForm":{
-      "register": "Zaregistrovat se"
+      "register": "Zaregistrovat se",
+      "title": "Registrace",
+      "email": "Zadejte svůj e-mail",
+      "password": "Zadejte své heslo",
+      "langlevel": "Vyberte požadovanou úroveň češtiny",
+      "origlang": "Vyberte jazyk aplikace "
     },
 
     "LocaleSwitcher": {
       "label": "Change language",
       "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
+    },
+
+    "Navigation": {
+      "words": "Slovník",
+      "topics": "Témata",
+      "rules": "Pravidla",
+      "exercises": "Cvičení",
+      "tags": "Tagy"
+    },
+
+    "Words": {
+      "dictionary": "Slovník",
+      "export": "Export"
+    },
+
+    "Word": {
+      "level": "Úroveň",
+      "topic": "Téma"
     }
   }

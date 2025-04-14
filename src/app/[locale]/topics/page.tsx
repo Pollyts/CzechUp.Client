@@ -7,19 +7,18 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 // Интерфейс для данных с API
-interface Word {
+interface Topic {
   guid: string;
-  word: string;
-  languageLevelGuid?: string;
-  userTopicGuid?: string;
-  generalOriginalWordGuid?: string;
+  name: string;
+  userGuid: string;
+  GeneralTopicGuid?: string;
 }
 
-const WordsPage = () => {
-  const [words, setWords] = useState<Word[]>([]);
+const TopicsPage = () => {
+  const [topics, setTopics] = useState<Topic[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const t = useTranslations('Words');
+  const t = useTranslations('Topics');
   const router = useRouter();
 
   const jwtToken = localStorage.getItem("token");
@@ -31,9 +30,9 @@ const WordsPage = () => {
       return;
     }
 
-    const fetchWords = async () => {
+    const fetchTopics = async () => {
       try {
-        const response = await fetch("https://localhost:44376/api/Word", {
+        const response = await fetch("https://localhost:44376/api/Topic", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${jwtToken}`,
@@ -45,8 +44,8 @@ const WordsPage = () => {
           throw new Error("Failed to fetch words");
         }
 
-        const data: Word[] = await response.json();
-        setWords(data);
+        const data: Topic[] = await response.json();
+        setTopics(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
@@ -54,18 +53,8 @@ const WordsPage = () => {
       }
     };
 
-    fetchWords();
+    fetchTopics();
   }, [jwtToken]);
-
-  const handleExportPDF = () => {
-    const doc = new jsPDF();
-    doc.text(t('dictionary'), 14, 15);
-    autoTable(doc, {
-      startY: 20,
-      body: words.map((word) => [word.word]),
-    });
-    doc.save('words.pdf');
-  };
 
   if (loading) {
     return <div className="text-center py-4">Loading...</div>;
@@ -79,22 +68,17 @@ const WordsPage = () => {
     <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-semibold text-black">{t('dictionary')}</h1>
-        <button
-          onClick={handleExportPDF}
-          className="bg-green text-white px-4 py-2 rounded hover:bg-green hover:text-white transition"        >
-          {t('export')}
-        </button>
       </div>
 
       <table className="min-w-full bg-white border border-gray rounded-lg">
         <tbody>
-          {words.map((word) => (
+          {topics.map((topic) => (
             <tr
-              key={word.guid}
+              key={topic.guid}
               className="hover:bg-gray-100 transition-all cursor-pointer"
-              onClick={() => router.push(`/word/${word.guid}`)}
+              onClick={() => router.push(`/word/${topic.guid}`)}
             >
-              <td className="p-3 border-b border-gray">{word.word}</td>
+              <td className="p-3 border-b border-gray">{topic.name}</td>
             </tr>
           ))}
         </tbody>
@@ -103,4 +87,4 @@ const WordsPage = () => {
   );
 };
 
-export default WordsPage;
+export default TopicsPage;

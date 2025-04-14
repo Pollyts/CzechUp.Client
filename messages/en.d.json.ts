@@ -2,23 +2,38 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-    "HomePage": {
-      "title": "Sing in",
-      "registration": "Registration"      
-    },
-
     "SignInForm":{
       "signIn": "Sing in",
       "password": "Password",
-      "email": "Email"
+      "email": "Email",
+      "registration": "Registration"
     },
 
     "RegistrationForm":{
-      "register": "Register"
+      "register": "Register",
+      "title": "Registration",
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "langlevel": "Choose required czech level",
+      "origlang": "Select the application language "
     },
+
     "LocaleSwitcher": {
       "label": "Change language",
       "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
+    },
+
+    "Navigation": {
+      "words": "Words",
+      "topics": "Topics",
+      "rules": "Rules",
+      "exercises": "Exercises",
+      "tags": "Tagy"
+    },
+
+    "Words": {
+      "dictionary": "Word dictionary",
+      "export": "Export"
     }
   };
 export default messages;

@@ -36,7 +36,7 @@ export default function LocaleSwitcherSelect({
 
   return (
     <label
-      className='relative text-green transition-opacity'>
+      className='relative text-green transition-opacity mr-10'>
       <p className="sr-only">{label}</p>
       <select
         className="inline-flex appearance-none bg-transparent py-3 pl-2 pr-6"
