@@ -3,28 +3,28 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import EditTopicModal from './EditTopicModal';
-import CreateTopicModal  from './CreateTopicModal';
-import { Topic } from '../../../../types';
+import EditTagModal from './EditTagModal';
+import CreateTagModal  from './CreateTagModal';
+import { UserTag, TagType } from '../../../../types';
 
-const TopicsPage = () => {
-  const [topics, setTopics] = useState<Topic[]>([]);
+const TagsPage = () => {
+  const [tags, setTags] = useState<UserTag[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editTopic, setEditTopic] = useState<Topic | null>(null);
-  const t = useTranslations('Topics');
+  const [editTag, setEditTag] = useState<UserTag | null>(null);
+  const t = useTranslations('Tags');
   const router = useRouter();
 
   const jwtToken = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
 
-  const fetchTopics = async () => {
+  const fetchTags = async () => {
     if (!jwtToken) return;
 
     setLoading(true);
     try {
-      const response = await fetch("https://localhost:44376/api/Topic", {
+      const response = await fetch("https://localhost:44376/api/Tag", {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${jwtToken}`,
@@ -33,11 +33,11 @@ const TopicsPage = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch topics");
+        throw new Error("Failed to fetch tags");
       }
 
-      const data: Topic[] = await response.json();
-      setTopics(data);
+      const data: UserTag[] = await response.json();
+      setTags(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -46,14 +46,14 @@ const TopicsPage = () => {
   };
 
   useEffect(() => {
-    fetchTopics();
+    fetchTags();
   }, [jwtToken]);
 
-  const handleDeleteTopic = async (guid: string) => {
-    if (!confirm("Удалить эту тему?")) return;
+  const handleDeleteTag = async (guid: string) => {
+    if (!confirm("Удалить этот тег?")) return;
 
     try {
-      const response = await fetch(`https://localhost:44376/api/Topic?guid=${guid}&withWords=true`, {
+      const response = await fetch(`https://localhost:44376/api/Tag?guid=${guid}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${jwtToken}`,
@@ -61,12 +61,12 @@ const TopicsPage = () => {
         },
       });
 
-      if (!response.ok) throw new Error("Failed to delete topic");
+      if (!response.ok) throw new Error("Failed to delete tag");
 
-      fetchTopics();
+      fetchTags();
     } catch (err) {
       console.error(err);
-      alert("Ошибка при удалении темы");
+      alert("Ошибка при удалении тэга");
     }
   };
 
@@ -81,28 +81,27 @@ const TopicsPage = () => {
           onClick={() => setModalOpen(true)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
         >
-          Создать тему
+          {t('create')}
         </button>
       </div>
 
       <table className="min-w-full bg-white border border-gray rounded-lg">
         <tbody>
-          {topics.map((topic) => (
+          {tags.map((tag) => (
             <tr
-              key={topic.Guid}
+              key={tag.Guid}
               className="hover:bg-gray-100 transition-all"
             >
               <td
                 className="p-3 border-b border-gray cursor-pointer"
-                onClick={() => router.push(`/word/${topic.Guid}`)}
               >
-                {topic.Name}
+                {tag.Name}
               </td>
               <td className="p-3 border-b border-gray text-right space-x-2">
                 <button
                   className="text-blue-600 hover:underline"
                   onClick={() => {
-                    setEditTopic({ ...topic });
+                    setEditTag({ ...tag });
                     setEditModalOpen(true);
                   }}
                 >
@@ -110,7 +109,7 @@ const TopicsPage = () => {
                 </button>
                 <button
                   className="text-red-600 hover:underline"
-                  onClick={() => handleDeleteTopic(topic.Guid)}
+                  onClick={() => handleDeleteTag(tag.Guid)}
                 >
                   🗑️
                 </button>
@@ -121,28 +120,28 @@ const TopicsPage = () => {
       </table>
 
       {modalOpen && (
-        <CreateTopicModal
+        <CreateTagModal
           jwtToken={jwtToken}
           onClose={() => setModalOpen(false)}
           onCreate={() => {
             setModalOpen(false);
-            fetchTopics();
+            fetchTags();
           }}
         />
       )}
 
-      {editModalOpen && editTopic && (
-        <EditTopicModal
-          topic={editTopic}
+      {editModalOpen && editTag && (
+        <EditTagModal
+          tag={editTag}
           jwtToken={jwtToken}
           onClose={() => {
             setEditModalOpen(false);
-            setEditTopic(null);
+            setEditTag(null);
           }}
           onSave={() => {
             setEditModalOpen(false);
-            setEditTopic(null);
-            fetchTopics();
+            setEditTag(null);
+            fetchTags();
           }}
         />
       )}
@@ -150,4 +149,4 @@ const TopicsPage = () => {
   );
 };
 
-export default TopicsPage;
+export default TagsPage;
