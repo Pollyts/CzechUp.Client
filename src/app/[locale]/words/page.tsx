@@ -5,15 +5,8 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { Word } from '../../../../types';
 
-// Интерфейс для данных с API
-interface Word {
-  guid: string;
-  word: string;
-  languageLevelGuid?: string;
-  userTopicGuid?: string;
-  generalOriginalWordGuid?: string;
-}
 
 const WordsPage = () => {
   const [words, setWords] = useState<Word[]>([]);
@@ -42,7 +35,13 @@ const WordsPage = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch words");
+          if(response.status == 401)
+            {
+              router.replace('/signin')
+            }
+            else{
+              throw new Error("Failed to fetch words");
+            }          
         }
 
         const data: Word[] = await response.json();
@@ -62,7 +61,7 @@ const WordsPage = () => {
     doc.text(t('dictionary'), 14, 15);
     autoTable(doc, {
       startY: 20,
-      body: words.map((word) => [word.word]),
+      body: words.map((word) => [word.Word]),
     });
     doc.save('words.pdf');
   };
@@ -90,11 +89,11 @@ const WordsPage = () => {
         <tbody>
           {words.map((word) => (
             <tr
-              key={word.guid}
+              key={word.Guid}
               className="hover:bg-gray-100 transition-all cursor-pointer"
-              onClick={() => router.push(`/word/${word.guid}`)}
+              onClick={() => router.push(`/word/${word.Guid}`)}
             >
-              <td className="p-3 border-b border-gray">{word.word}</td>
+              <td className="p-3 border-b border-gray">{word.Word}</td>
             </tr>
           ))}
         </tbody>
