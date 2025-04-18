@@ -5,18 +5,18 @@ import { useParams } from 'next/navigation';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface WordExampleDto {
-  guid: string;
-  originalExample: string;
-  translatedExample: string;
+  Guid: string;
+  OriginalExample: string;
+  TranslatedExample: string;
 }
 
 interface WordDto {
-  guid: string;
-  word: string;
-  languageLevel: string;
-  topic: string;
-  translations: string[];
-  wordExamples: WordExampleDto[];
+  Guid: string;
+  Word: string;
+  LanguageLevel: string;
+  Topic: string;
+  Translations: string[];
+  WordExamples: WordExampleDto[];
 }
 
 const WordDetailPage = () => {
@@ -77,12 +77,12 @@ const WordDetailPage = () => {
 
   return (
     <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-2xl mt-10">
-      <h1 className="text-3xl font-semibold mb-6 text-black">{wordData.word}</h1>
+      <h1 className="text-3xl font-semibold mb-6 text-black">{wordData.Word}</h1>
       <div className="space-y-4 text-lg text-gray-800">
         <div>
           <ul className="list-disc list-inside pl-2 space-y-1">
-            {wordData.translations.length > 0 ? (
-              wordData.translations.map((t, index) => (
+            {wordData.Translations.length > 0 ? (
+              wordData.Translations.map((t, index) => (
                 <li key={index}>{t}</li>
               ))
             ) : (
@@ -91,8 +91,8 @@ const WordDetailPage = () => {
           </ul>
         </div>
 
-        <p><span className="font-semibold">Level:</span> {wordData.languageLevel}</p>
-        <p><span className="font-semibold">Topic:</span> {wordData.topic}</p>
+        <p><span className="font-semibold">Level:</span> {wordData.LanguageLevel}</p>
+        <p><span className="font-semibold">Topic:</span> {wordData.Topic}</p>
 
         <div>
           <button
@@ -104,12 +104,12 @@ const WordDetailPage = () => {
           </button>
 
           {examplesOpen && (
-            wordData.wordExamples.length > 0 ? (
+            wordData.WordExamples.length > 0 ? (
               <ul className="space-y-3 mt-3">
-                {wordData.wordExamples.map((ex) => (
-                  <li key={ex.guid} className="bg-gray rounded-lg p-3">
-                    <p><strong>Original:</strong> {ex.originalExample}</p>
-                    <p><strong>Translation:</strong> {ex.translatedExample}</p>
+                {wordData.WordExamples.map((ex) => (
+                  <li key={ex.Guid} className="bg-gray rounded-lg p-3">
+                    <p><strong>Original:</strong> {ex.OriginalExample}</p>
+                    <p><strong>Translation:</strong> {ex.TranslatedExample}</p>
                   </li>
                 ))}
               </ul>

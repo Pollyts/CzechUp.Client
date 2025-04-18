@@ -4,10 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from '../../../i18n/navigation';
 import { useTranslations } from 'next-intl';
-import LocaleSwitcher from '../../../../components/LocaleSwitcher';
-
-type Language = { guid: string; name: string };  // Изменено на guid (string)
-type LanguageLevel = { guid: string; name: string };  // Изменено на guid (string)
+import { Language, LanguageLevel } from '../../../../types';
 
 interface RegistrationFormData {
   Login: string;
@@ -86,8 +83,8 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
             >
               <option value="">{t('langlevel')}</option>
               {languageLevels.map((level) => (
-                <option key={level.guid} value={level.guid}>  {/* Используем guid */}
-                  {level.name}
+                <option key={level.Guid} value={level.Guid}>  {/* Используем guid */}
+                  {level.Name}
                 </option>
               ))}
             </select>
@@ -103,10 +100,10 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
             >
               <option value="">{t('origlang')}</option>
               {languages
-                .filter((lang) => lang.name !== "CZ")
+                .filter((lang) => lang.Name !== "CZ")
                 .map((lang) => (
-                  <option key={lang.guid} value={lang.guid}>  {/* Используем guid */}
-                    {lang.name}
+                  <option key={lang.Guid} value={lang.Guid}>  {/* Используем guid */}
+                    {lang.Name}
                   </option>
                 ))}
             </select>

@@ -2,8 +2,15 @@ export interface IDbEntity {
   Guid: string;
 }
 
+export interface Language extends IDbEntity{
+  Name: string;
+}
+
+export interface LanguageLevel extends IDbEntity{
+  Name: string;
+}
+
 export interface Word extends IDbEntity{
-  Guid: string;
   Word: string;
   LanguageLevelGuid?: string;
   UserTopicGuid?: string;
@@ -16,6 +23,16 @@ export interface Topic extends IDbEntity{
     GeneralTopicGuid?: string;
 }
 
+export interface Rule extends IDbEntity{
+  Name: string;
+}
+
+export interface UserRuleNote extends IDbEntity{
+  Note: string;
+  UserGuid: string;
+  RuleGuid: string;
+  Rule: Rule;
+}
 
 export enum TagTypeEnum {
     Word = 0,

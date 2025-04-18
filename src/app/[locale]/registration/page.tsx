@@ -1,11 +1,11 @@
 import RegistrationForm from "./RegistrationForm";
-
-type Language = { guid: string; name: string };  // Изменено на guid (string)
-type LanguageLevel = { guid: string; name: string };  // Изменено на guid (string)
+import { Language, LanguageLevel } from '../../../../types';
 
 async function getLanguages(): Promise<Language[]> {
   const res = await fetch("https://localhost:44376/dictionary/Languages");
-  return res.json();
+  const data = await res.json();
+  console.log(data);
+  return data;
 }
 
 async function getLanguageLevels(): Promise<LanguageLevel[]> {
