@@ -50,3 +50,28 @@ export interface UserTag extends IDbEntity {
   UserGuid: string;
   TagTypes: TagType[];
 }
+
+export interface WordDto extends IDbEntity {
+  Word: string;
+  LanguageLevel: string;
+  Topic: string;
+  Translations: string[];
+  Tags: string[];
+  WordForms: WordFormDto[];
+  WordExamples: WordExampleDto[];
+}
+
+export interface WordFormDto extends IDbEntity {
+  Tag: string;
+  Form: string;
+}
+
+export interface WordExampleDto extends IDbEntity {
+  OriginalExample: string;
+  TranslatedExample: string;
+}
+
+export interface SearchedWordDto extends IDbEntity {
+  Word: WordDto;
+  CanAddToDb: boolean;
+}
