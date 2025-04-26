@@ -3,7 +3,8 @@
       "signIn": "Přihlasit se",
       "password": "Heslo",
       "email": "Elektronická pošta",
-      "registration": "Registrace"
+      "registration": "Registrace",
+      "resetPassword": "Resetovat heslo"
     },
 
     "RegistrationForm":{
@@ -12,7 +13,7 @@
       "email": "Zadejte svůj e-mail",
       "password": "Zadejte své heslo",
       "langlevel": "Vyberte požadovanou úroveň češtiny",
-      "origlang": "Vyberte jazyk aplikace "
+      "origlang": "Vyberte jazyk pro překlad slov"
     },
 
     "LocaleSwitcher": {
@@ -35,6 +36,11 @@
 
     "Word": {
       "level": "Úroveň",
-      "topic": "Téma"
+      "topic": "Téma",
+      "loading": "Načítání",
+      "noTranslations": "Nejsou překlady",
+      "topics": "Témata",
+      "tags": "Tagy",
+      "languageLevel": "Úroveň jazýka"
     }
   }

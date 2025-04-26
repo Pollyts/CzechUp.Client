@@ -53,33 +53,41 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
     <div>
       <div className="flex flex-col items-center justify-center">
         <div className="p-6 flex flex-col items-center justify-center">
-          <h1 className="text-2xl font-bold text-green mb-4">{t('title')}</h1>
+
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="max-w-md mx-auto space-y-4 p-6 rounded-lg shadow-lg"
+            className="max-w-sm mx-auto p-6 shadow-md rounded-lg mt-10 flex flex-col bg-beige items-center"
           >
+            <h1 className="text-2xl font-bold text-green mb-5">{t('title')}</h1>
 
+            {errors.Email && (
+              <p className="text-red-600 text-xs self-start mb-1">
+                {errors.Email.message}
+              </p>
+            )}
             <input
               type="email"
               {...register("Email", { required: "Email is required" })}
               placeholder={t('email')}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 mb-3 border border-green rounded text-green"
             />
-            {errors.Email && <p className="text-red-600 text-sm">{errors.Email.message}</p>}
 
+{errors.Password && <p className="text-red-600 text-xs self-start mb-1">{errors.Password.message}</p>}
             <input
               type="password"
               {...register("Password", { required: "Password is required" })}
               placeholder={t('password')}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 mb-3 border border-green rounded text-green"
             />
-            {errors.Password && <p className="text-red-600 text-sm">{errors.Password.message}</p>}
-
+            
+            {errors.RequiredLanguageLevelGuid && (
+              <p className="text-red-600 text-xs self-start mb-1">{errors.RequiredLanguageLevelGuid.message}</p>
+            )}
             <select
               {...register("RequiredLanguageLevelGuid", {
                 required: "Language level is required",
               })}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 mb-3 border border-green rounded text-green"
             >
               <option value="">{t('langlevel')}</option>
               {languageLevels.map((level) => (
@@ -88,15 +96,16 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
                 </option>
               ))}
             </select>
-            {errors.RequiredLanguageLevelGuid && (
-              <p className="text-red-600 text-sm">{errors.RequiredLanguageLevelGuid.message}</p>
+            
+            {errors.OriginLanguageGuid && (
+              <p className="text-red-600 text-xs self-start mb-1">{errors.OriginLanguageGuid.message}</p>
             )}
 
             <select
               {...register("OriginLanguageGuid", {
                 required: "Language is required",
               })}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 mb-3 border border-green rounded text-green"
             >
               <option value="">{t('origlang')}</option>
               {languages
@@ -107,14 +116,11 @@ export default function RegistrationForm({ languages, languageLevels }: Props) {
                   </option>
                 ))}
             </select>
-            {errors.OriginLanguageGuid && (
-              <p className="text-red-600 text-sm">{errors.OriginLanguageGuid.message}</p>
-            )}
-
+            
             <button
               type="submit"
               disabled={loading}
-              className="w-full p-2 bg-black text-white rounded-lg hover:bg-green transition"
+              className="w-full bg-green text-beige py-2 rounded hover:text-white"
             >
               {loading ? "Registering..." : t('register')}
             </button>

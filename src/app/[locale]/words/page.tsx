@@ -5,15 +5,17 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { SearchedWordDto, Word } from '../../../../types';
+import { SearchedWordDto, Word, FilterWordDto } from '../../../../types';
 import SearchWordResultModal from './SearchWordResult'
 import CreateWordModal from './CreateWordModal';
 import { Trash2 } from 'lucide-react';
+import WordsFilter from './WordsFilter';
 
 
 const WordsPage = () => {
   
   const [words, setWords] = useState<Word[]>([]);
+  const [filter, setFilter] = useState<FilterWordDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -26,6 +28,10 @@ const WordsPage = () => {
   const jwtToken = localStorage.getItem("token");
   
   const fetchWords = async () => {
+    if(filter!=null){
+      fetchFilteredWords(filter);
+      return;
+    }
     try {
       const response = await fetch("https://localhost:44376/api/Word", {
         method: "GET",
@@ -51,6 +57,30 @@ const WordsPage = () => {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchFilteredWords = async (filters: FilterWordDto) => {
+    setFilter(filters);
+    try {
+      const response = await fetch("https://localhost:44376/api/Word/withFilter", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${jwtToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(filters),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Ошибка при получении отфильтрованных слов");
+      }
+  
+      const data: Word[] = await response.json();
+      setWords(data);
+    } catch (error) {
+      console.error("Ошибка при фильтрации слов:", error);
+      alert("Произошла ошибка при фильтрации.");
     }
   };
 
@@ -130,6 +160,12 @@ const WordsPage = () => {
   }
 
   return (
+    <div className="flex">
+    {/* Фильтр слева */}
+    <WordsFilter jwtToken={jwtToken} onApplyFilter={fetchFilteredWords} />
+
+    {/* Контент справа */}
+    <div className="flex-1 container mx-auto p-6 bg-white rounded-lg shadow-lg">
     <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-semibold text-black">{t('dictionary')}</h1>
@@ -202,6 +238,8 @@ const WordsPage = () => {
           }}
         />
       )}
+    </div>
+    </div>
     </div>
   );
 };

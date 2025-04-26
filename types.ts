@@ -75,3 +75,57 @@ export interface SearchedWordDto extends IDbEntity {
   Word: WordDto;
   CanAddToDb: boolean;
 }
+
+export interface FilterWordDto {
+  Tags: string[];
+  Topics: string[];
+}
+
+export interface FilterExerciseDto
+{
+    Tags: string[];
+    Topics: string[];
+    LanguageLevels: string[];
+    ExerciseTypes: string[];
+    CompleteResults: CompleteResult[];
+}
+
+export enum  CompleteResult
+{
+    WithMistakes = 0,
+    WithoutMistakes = 1
+}
+
+export interface ExerciseGeneratorDto
+{
+    Tags: string[];
+    Topics: string[];
+    LanguageLevels: string[];
+    ExerciseTypes: ExerciseType[];
+    Count: number;
+    OnlyNew: boolean;
+}
+
+export interface ExerciseResultDto extends IDbEntity
+{
+    LastUsed: Date
+    ExerciseType: ExerciseType;
+    Result: boolean;
+}
+
+export enum ExerciseType
+{
+    InsertWordInRightForm, // Заполнение пропуска подходящим словом в правильной форме. 
+    CreateSentence, //Составление предложений с новыми словами
+    InsertWordToText, //	Заполнение пропусков в тексте словами из предложенных вариантов
+    MatchingWordAndItsTranslate, //	Выбрать правильный перевод слова из предложенных
+    WriteCzechWord, // Написать перевод слова
+}
+
+export interface ExerciseDto extends IDbEntity
+{
+    Question : string;
+    AnswerOptions: string;
+    Answer: string;
+    ExerciseType: ExerciseType;
+}

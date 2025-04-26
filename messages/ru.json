@@ -3,7 +3,8 @@
       "signIn": "Войти",
       "password": "Пароль",
       "email": "Электронная почта",
-      "registration": "Регистрация"
+      "registration": "Регистрация",
+      "resetPassword": "Восстановить пароль"
     },
 
     "RegistrationForm":{
@@ -12,7 +13,7 @@
       "email": "Введите свой адрес электронной почты",
       "password": "Введите свой пароль",
       "langlevel": "Выберите желаемый уровень чешского языка",
-      "origlang": "Выберите язык приложения"
+      "origlang": "Выберите язык для перевода слов"
     },
 
     "LocaleSwitcher": {
@@ -30,6 +31,11 @@
 
     "Words": {
       "dictionary": "Словарь",
-      "export": "Экспорт"
+      "export": "Экспорт",
+      "loading": "Загрузка",
+      "noTranslations": "Нет переводов",
+      "topics": "Темы",
+      "tags": "Тэги",
+      "languageLevel": "Уровень языка"
     }
   }

@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { WordDto } from '../../../../../types';
 import EditWordModal from './EditWordModal';
+import { useTranslations } from 'next-intl';
 
 const WordDetailPage = () => {
   const { guid } = useParams();
@@ -13,6 +14,7 @@ const WordDetailPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [examplesOpen, setExamplesOpen] = useState<boolean>(false); // 👈 Добавлено состояние
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const t = useTranslations('Word');
 
   const jwtToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
@@ -51,7 +53,7 @@ const WordDetailPage = () => {
   }, [guid, jwtToken]);
 
   if (loading) {
-    return <div className="text-center py-4">Loading...</div>;
+    return <div className="text-center py-4">t{'Loading'}</div>;
   }
 
   if (error) {
@@ -64,7 +66,7 @@ const WordDetailPage = () => {
 
   return (
     <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-2xl mt-10">
-      <h1 className="text-3xl font-semibold mb-6 text-black">{wordData.Word}</h1>
+      <h1 className="text-4xl font-semibold mb-6 text-black">{wordData.Word}</h1>
       <button
         onClick={() => setIsEditOpen(true)}
         className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -79,14 +81,14 @@ const WordDetailPage = () => {
                 <li key={index}>{t}</li>
               ))
             ) : (
-              <li className="italic text-gray-500">No translations</li>
+              <li className="italic text-gray-500">{t('NoTranslations')}</li>
             )}
           </ul>
         </div>
 
-        <p><span className="font-semibold">Level:</span> {wordData.LanguageLevel}</p>
-        <p><span className="font-semibold">Topic:</span> {wordData.Topic}</p>
-        <p><span className="font-semibold">Tags:</span> {wordData.Tags.join(', ')}</p>
+        <p><span className="font-semibold">{t("languageLevel")}:</span> {wordData.LanguageLevel}</p>
+        <p><span className="font-semibold">{t("topics")}:</span> {wordData.Topic}</p>
+        <p><span className="font-semibold">{t("tags")}:</span> {wordData.Tags.join(', ')}</p>
 
         <div>
           <button

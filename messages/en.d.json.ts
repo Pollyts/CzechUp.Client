@@ -3,10 +3,11 @@
 
 declare const messages: {
     "SignInForm":{
-      "signIn": "Sing in",
+      "signIn": "Sign in",
       "password": "Password",
       "email": "Email",
-      "registration": "Registration"
+      "registration": "Registration",
+      "resetPassword": "Reset password"
     },
 
     "RegistrationForm":{
@@ -15,7 +16,7 @@ declare const messages: {
       "email": "Enter your email",
       "password": "Enter your password",
       "langlevel": "Choose required czech level",
-      "origlang": "Select the application language "
+      "origlang": "Select language to translate words"
     },
 
     "LocaleSwitcher": {
@@ -28,12 +29,22 @@ declare const messages: {
       "topics": "Topics",
       "rules": "Rules",
       "exercises": "Exercises",
-      "tags": "Tagy"
+      "tags": "Tags"
     },
 
     "Words": {
       "dictionary": "Word dictionary",
       "export": "Export"
+    },
+
+    "Word": {
+      "dictionary": "Word dictionary",
+      "export": "Export",
+      "loading": "Loading",
+      "noTranslations": "No translations",
+      "topics": "Topics",
+      "tags": "Tags",
+      "languageLevel": "Language level"
     }
   };
 export default messages;

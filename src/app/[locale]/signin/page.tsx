@@ -40,7 +40,8 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="max-w-sm mx-auto p-6 shadow-md rounded-lg mt-10">
+    <div className="flex flex-col items-center">
+    <div className="max-w-sm mx-auto p-6 shadow-md rounded-lg mt-10 flex flex-col bg-beige items-center">
           {error && <p className="text-red-500">{error}</p>}
           <h1 className="text-2xl font-bold text-green mb-4">{t('signIn')}</h1>
           <form onSubmit={handleLogin}>
@@ -48,7 +49,7 @@ export default function LoginForm() {
               value={Email}
               placeholder={t('email')}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 mb-3 border border-black rounded"
+              className="w-full p-2 mb-3 border  border-green rounded text-green"
               required
             />
             <input
@@ -56,17 +57,19 @@ export default function LoginForm() {
               placeholder={t('password')}
               value={Password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 mb-3 border border-black rounded"
+              className="w-full p-2 mb-3 border border-green rounded text-green"
               required
             />
             <button
               type="submit"
-              className="w-full bg-black text-white text-white py-2 rounded hover:bg-green"
+              className="w-full bg-green text-beige py-2 rounded hover:text-white"
             >
               {t('signIn')}
             </button>
-          </form>
-          <Link className="text-l font-bold text-green mb-4" href="/registration">{t('registration')}</Link>
+          </form>          
+          <Link className="text-l font-bold text-green mt-4" href="/registration">{t('registration')}</Link>
+    </div>
+      <Link className="text-xs text-green mt-5" href="#">{t('resetPassword')}</Link>
     </div>
   );
 }

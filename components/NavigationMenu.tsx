@@ -22,14 +22,13 @@ export default function NavigationMenu() {
 
     return (
         <div className="flex flex-col">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center">
                 <Link href="/" className="flex items-center gap-2 ml-10">
                     <Image src="/logo.png" alt="Logo" width={72} height={72} /> {/* <-- тут */}
                 </Link>
                 {isRootLocalePath
                     ? ''
-                    : <div><header className="p-4 flex justify-between items-center">
-                        {isAuthPage && <LocaleSwitcher />}
+                    : <div className="w-full"><header className="p-4 flex justify-between items-center">                        
                         {!isAuthPage && <div><nav className="flex gap-4">
                             {links.map((link) => (
                                 <Link key={link.href} href={link.href}>
@@ -37,6 +36,7 @@ export default function NavigationMenu() {
                                 </Link>
                             ))}
                         </nav></div>}
+                        <LocaleSwitcher />
                     </header>
                     {/* {isRootLocalePath && !isAuthPage && <div className="p-2"><span>Breadcrumbs</span></div>} */}
                     </div>}

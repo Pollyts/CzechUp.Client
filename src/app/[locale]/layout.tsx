@@ -29,7 +29,7 @@ export default async function LocaleLayout({children, params}: Props) {
   setRequestLocale(locale);
 
   return (
-    <html className="h-full" lang={locale}>
+    <html className="h-full bg-white" lang={locale}>
       <body className={'flex h-full flex-col'}>
         <NextIntlClientProvider>
           <NavigationMenu/>
