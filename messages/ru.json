@@ -32,10 +32,33 @@
     "Words": {
       "dictionary": "Словарь",
       "export": "Экспорт",
+      "createWord": "Добавить слово",
+      "searchWord": "Поиск",
+      "enterCzechWord": "Введите слово в чешском языке"
+    },
+
+    "Word":{
       "loading": "Загрузка",
       "noTranslations": "Нет переводов",
       "topics": "Темы",
       "tags": "Тэги",
-      "languageLevel": "Уровень языка"
+      "languageLevel": "Уровень языка",
+      "examples": "Примеры",
+      "original": "Оригинал",
+      "translated": "Перевод",
+      "edit": "Изменить",
+      "wordForms": "Формы слова"
+    },
+
+    "WordForms": {
+      "Number": "Число",
+      "Negation": "Отрицание",
+      "Gender": "Род",
+      "Aspect": "Вид",
+      "Type": "Тип глагола",
+      "Person": "Лицо",
+      "Reset": "Сбросить",
+      "Degree": "Степень",
+      "Case": "Падеж"
     }
   }

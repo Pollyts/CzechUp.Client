@@ -41,6 +41,23 @@
       "noTranslations": "No translations",
       "topics": "Topics",
       "tags": "Tags",
-      "languageLevel": "Language level"
+      "languageLevel": "Language level",
+      "examples": "Examples",
+      "original": "Original",
+      "translated": "Translated",
+      "edit": "Edit",
+      "wordForms": "Word forms"
+    },
+
+    "WordForms": {
+      "Number": "Number",
+      "Negation": "Negation",
+      "Gender": "Gender",
+      "Aspect": "Aspect",
+      "Type": "Type (mode)",
+      "Person": "Person",
+      "Reset": "Reset",
+      "Degree": "Degree",
+      "Case": "Case"
     }
   }

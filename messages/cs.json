@@ -41,6 +41,23 @@
       "noTranslations": "Nejsou překlady",
       "topics": "Témata",
       "tags": "Tagy",
-      "languageLevel": "Úroveň jazýka"
+      "languageLevel": "Úroveň jazýka",
+      "examples": "Příklady",
+      "original": "Původní věta",
+      "translated": "Překlad",
+      "edit": "Upravit",
+      "wordForms": "Slovní tvary"
+    },
+
+    "WordForms": {
+      "Number": "Číslo",
+      "Negation": "Negace",
+      "Gender": "Rod",
+      "Aspect": "Vid",
+      "Type": "Typ (Mód)",
+      "Person": "Osoba",
+      "Reset": "Resetovat",
+      "Degree": "Stupeň",
+      "Case": "Pád"
     }
   }

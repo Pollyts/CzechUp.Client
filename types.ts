@@ -54,7 +54,7 @@ export interface UserTag extends IDbEntity {
 export interface WordDto extends IDbEntity {
   Word: string;
   LanguageLevel: string;
-  Topic: string;
+  Topics: string[];
   Translations: string[];
   Tags: string[];
   WordForms: WordFormDto[];
@@ -64,6 +64,15 @@ export interface WordDto extends IDbEntity {
 export interface WordFormDto extends IDbEntity {
   Tag: string;
   Form: string;
+  Part: string;
+  Pad: string;
+  Cislo: string;
+  Negace: string;
+  Stupen: string;
+  Vid: string;
+  Typ: string;
+  Rod: String;
+  Osoba: string;
 }
 
 export interface WordExampleDto extends IDbEntity {

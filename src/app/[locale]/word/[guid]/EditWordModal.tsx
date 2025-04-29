@@ -132,7 +132,7 @@ interface EditWordModalProps {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md space-y-4">
+      <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto space-y-4">
       <h2 className="text-2xl font-semibold">Редактировать слово</h2>
 
         <input
@@ -225,18 +225,28 @@ interface EditWordModalProps {
           ))}
         </select>
 
-        <select
-          value={wordDto.Topic}
-          onChange={(e) => setWordDto({ ...wordDto, Topic: e.target.value })}
-          className="w-full p-2 border border-gray-300 rounded-lg"
+
+
+        <div className="flex flex-wrap gap-2">
+    {wordDto.Topics.map((topicName, index) => (
+      <span
+        key={index}
+        className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full"
+      >
+        {topicName}
+        <button
+          onClick={() => {
+            const updatedTopics = wordDto.Topics.filter((_, i) => i !== index);
+            setWordDto({ ...wordDto, Topics: updatedTopics });
+          }}
+          className="ml-2 text-blue-600 hover:text-blue-800"
+          title="Удалить тег"
         >
-          <option value="">Выберите тему</option>
-          {topics.map((topic) => (
-            <option key={topic.Guid} value={topic.Name}>
-              {topic.Name}
-            </option>
-          ))}
-        </select>
+          ✖
+        </button>
+      </span>
+    ))}
+  </div>
 
         <div className="space-y-2">
           <label className="block font-medium">Примеры использования:</label>
