@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import '../../../../public/fonts/js/Lora-Regular-normal'; // путь к файлу со шрифтом, который ты сгенерировал
 import { SearchedWordDto, Word, FilterWordDto } from '../../../../types';
 import SearchWordResultModal from './SearchWordResult'
 import CreateWordModal from './CreateWordModal';
@@ -118,10 +119,13 @@ const WordsPage = () => {
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
+    doc.setFont('Lora-Regular');
     doc.text(t('dictionary'), 14, 15);
     autoTable(doc, {
       startY: 20,
+      head: [['Word']],
       body: words.map((word) => [word.Word]),
+      styles: { font: 'Lora-Regular' },
     });
     doc.save('words.pdf');
   };
