@@ -39,7 +39,7 @@ export default function LocaleSwitcherSelect({
       className='relative text-green transition-opacity mr-10'>
       <p className="sr-only">{label}</p>
       <select
-        className="inline-flex appearance-none bg-transparent py-3 pl-2 pr-6"
+        className="inline-flex appearance-none bg-transparent py-3 pl-2 pr-6 outline-none focus:outline-none focus:ring-0 focus:border-none"
         defaultValue={defaultValue}
         disabled={isPending}
         onChange={onSelectChange}

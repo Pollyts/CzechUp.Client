@@ -80,6 +80,11 @@ export interface WordExampleDto extends IDbEntity {
   TranslatedExample: string;
 }
 
+export interface PdfWord{
+  Word: string;
+  Translations: string;
+}
+
 export interface SearchedWordDto extends IDbEntity {
   Word: WordDto;
   CanAddToDb: boolean;

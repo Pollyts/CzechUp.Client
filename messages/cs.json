@@ -31,7 +31,10 @@
 
     "Words": {
       "dictionary": "Slovník",
-      "export": "Export"
+      "export": "Export",
+      "enterCzechWord": "Zadejte slovo v češtině",
+      "createWord": "Přidat slovo",
+      "searchWord": "Hledat"
     },
 
     "Word": {
@@ -59,5 +62,9 @@
       "Reset": "Resetovat",
       "Degree": "Stupeň",
       "Case": "Pád"
+    },
+
+    "Loading":{
+      "loading": "Načítání"
     }
   }

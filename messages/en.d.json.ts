@@ -34,7 +34,10 @@ declare const messages: {
 
     "Words": {
       "dictionary": "Word dictionary",
-      "export": "Export"
+      "export": "Export",
+      "enterCzechWord": "Write word in czech language",
+      "createWord": "Add word",
+      "searchWord": "Search"
     },
 
     "Word": {

@@ -142,15 +142,15 @@ export default function ExercisePage() {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Вопрос</h1>
-      <p>{exercise.Question}</p>
+      <h1 className="text-xl font-bold mb-4 text-green">Вставьте пропущенные слова из предложенных в текст</h1>
+      <p className="text-black">{exercise.Question}</p>
   
       <div className="flex flex-wrap gap-2 mt-10">
         {answerOptions.map((option, idx) => (
           <button
             key={idx}
             onClick={() => handleWordClick(option)}
-            className="px-3 py-1 border border-gray-300 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200"
+            className="px-3 py-1 border border-gray rounded-md bg-gray text-black hover:bg-green hover:text-beige cursor-pointer"
           >
             {option}
           </button>
@@ -158,17 +158,17 @@ export default function ExercisePage() {
       </div>
   
       <div className="mt-6">
-        <h2 className="font-semibold mb-2">Ответ:</h2>
+        <h2 className="font-semibold mb-2 text-green">Ваш ответ:</h2>
         <div className="flex flex-wrap gap-2">
           {userAnswer.map((word, idx) => (
             <span
               key={idx}
-              className="flex items-center px-3 py-1 border border-blue-300 rounded-full bg-blue-100 text-blue-700"
+              className="flex items-center px-3 py-1 border border-gray rounded-full bg-white text-green"
             >
               {word}
               <button
                 onClick={() => removeWord(word)}
-                className="ml-2 text-red-500 hover:text-red-700"
+                className="ml-2 text-red-500 hover:text-red-700 cursor-pointer"
               >
                 ✕
               </button>
@@ -180,13 +180,13 @@ export default function ExercisePage() {
       <div className="mt-6 flex gap-4">
         <button
           onClick={handleSaveAnswer}
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          className="px-4 py-2 bg-green font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
         >
           Сохранить ответ
         </button>
         <button
           onClick={handleShowAnswer}
-          className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+          className="px-4 py-2 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
         >
           Посмотреть результат
         </button>
