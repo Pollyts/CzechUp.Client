@@ -180,7 +180,7 @@ const WordFormsPart: React.FC<Props> = ({ wordForms }) => {
 
           return (
             <div key={index} className="p-2 border border-gray rounded flex justify-between">
-              <div className="font-semibold">{wf.Form}</div>
+              <div className="font-semibold font-lora">{wf.Form}</div>
               {matchedButtons.length > 0 && (
                 <div className="text-sm text-gray-600 mt-1 flex flex-wrap gap-2">
                   {matchedButtons.map((btn, idx) => (

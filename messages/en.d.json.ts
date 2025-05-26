@@ -2,69 +2,190 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-    "SignInForm":{
-      "signIn": "Sign in",
-      "password": "Password",
-      "email": "Email",
-      "registration": "Registration",
-      "resetPassword": "Reset password"
-    },
-
-    "RegistrationForm":{
-      "register": "Register",
-      "title": "Registration",
-      "email": "Enter your email",
-      "password": "Enter your password",
-      "langlevel": "Choose required czech level",
-      "origlang": "Select language to translate words"
-    },
-
-    "LocaleSwitcher": {
-      "label": "Change language",
-      "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
-    },
-
-    "Navigation": {
-      "words": "Words",
-      "topics": "Topics",
-      "rules": "Rules",
-      "exercises": "Exercises",
-      "tags": "Tags"
-    },
-
-    "Words": {
-      "dictionary": "Word dictionary",
-      "export": "Export",
-      "enterCzechWord": "Write word in czech language",
-      "createWord": "Add word",
-      "searchWord": "Search"
-    },
-
-    "Word": {
-      "dictionary": "Word dictionary",
-      "export": "Export",
-      "loading": "Loading",
-      "noTranslations": "No translations",
-      "topics": "Topics",
-      "tags": "Tags",
-      "languageLevel": "Language level",
-      "examples": "Examples",
-      "original": "Original",
-      "translated": "Translated",
-      "edit": "Edit",
-      "wordForms": "Word forms"
-    },
-
-    "WordForms": {
-      "Number": "Number",
-      "Negation": "Negation",
-      "Gender": "Gender",
-      "Aspect": "Aspect",
-      "Type": "Type (mode)",
-      "Person": "Person",
-      "Reset": "Reset",
-      "Degree": "Degree",
-      "Case": "Case"
-    }
-  };
+  "SignInForm": {
+    "signIn": "Sign in",
+    "password": "Password",
+    "email": "Email",
+    "registration": "Registration",
+    "resetPassword": "Reset password"
+  },
+  "Account": {
+    "changeData": "Change data",
+  "password": "Password",
+  "email": "Email",
+  "ok": "Update data"
+  },
+  "ResetPassword": {
+    "writeEmail": "Enter your email address and we will send you instructions to reset your password",
+    "send": "Send request",
+    "email": "Email",
+    "success": "Your password change request has been successfully submitted.",
+    "error": "An error occurred while submitting the request. Please check the information and try again."
+  },
+  "RegistrationForm": {
+    "register": "Register",
+    "title": "Registration",
+    "email": "Enter your email",
+    "password": "Enter your password",
+    "langlevel": "Choose required czech level",
+    "origlang": "Select language to translate words",
+    "success": "Successfully registered. Redirecting...",
+    "error": "Error during registration",
+    "registering": "Registration in progress. Please wait."
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
+  },
+  "Navigation": {
+    "words": "Words",
+    "topics": "Topics",
+    "rules": "Rules",
+    "exercises": "Exercises",
+    "tags": "Tags"
+  },
+  "Words": {
+    "dictionary": "Word dictionary",
+    "export": "Export",
+    "enterCzechWord": "Write word in czech language",
+    "createWord": "Add word",
+    "searchWord": "Search"
+  },
+  "Word": {
+    "dictionary": "Word dictionary",
+    "export": "Export",
+    "loading": "Loading",
+    "noTranslations": "No translations",
+    "topics": "Topics",
+    "tags": "Tags",
+    "languageLevel": "Language level",
+    "examples": "Examples",
+    "original": "Original",
+    "translated": "Translated",
+    "edit": "Edit",
+    "wordForms": "Word forms"
+  },
+  "WordForms": {
+    "Number": "Number",
+    "Negation": "Negation",
+    "Gender": "Gender",
+    "Aspect": "Aspect",
+    "Type": "Type (mode)",
+    "Person": "Person",
+    "Reset": "Reset",
+    "Degree": "Degree",
+    "Case": "Case"
+  },
+  "Loading": {
+    "loading": "Loading..."
+  },
+  "WordsFilter": {
+    "filter": "Filter",
+    "topics": "Topics",
+    "languageLevel": "Language level",
+    "tags": "Tags",
+    "selectTopic": "Select topic",
+    "selectTag": "Select tag",
+    "selectLanguageLevel": "Select language level",
+    "apply": "Apply",
+    "reset": "Reset"
+  },
+  "Topics": {
+    "dictionary": "List of topics",
+    "create": "Add topic",
+    "edit": "Edit topic",
+    "cancel": "Cancel",
+    "save": "Save",
+    "name": "Topic name",
+    "delete": "Are you sure you want to delete the topic? All words associated with this topic will remain, but they will no longer belong to it.",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "Tags": {
+    "dictionary": "Tag list",
+    "create": "Add tag",
+    "edit": "Edit tag",
+    "cancel": "Cancel",
+    "save": "Save",
+    "name": "Tag name",
+    "delete": "Are you sure you want to delete the tag? All words associated with this tag will remain, but they will no longer belong to it.",
+    "yes": "Yes",
+    "no": "No",
+    "word": "Dictionary",
+    "rule": "Topics",
+    "topic": "Rules",
+    "exercise": "Exercises",
+    "types": "Display for sections:"
+  },
+  "Rules": {
+    "rules": "Rules",
+    "open": "View rule",
+    "save": "Save",
+    "notes": "Notes",
+    "successSave": "Note saved successfully"
+  },
+  "Exercises": {
+    "dictionary": "My exercises list",
+    "lastOpen": "Last opened",
+    "exerciseType": "Exercise type",
+    "result": "Result",
+    "generate": "Generate exercises",
+    "delete": "Are you sure you want to delete the exercise?",
+    "yes": "Yes",
+    "no": "No",
+    "createSentence": "Build a sentence",
+    "insertWordInRightForm": "Word in the correct form",
+    "insertWordToText": "Insert words into the text",
+    "matchingWordAndItsTranslate": "Match with translation",
+    "writeCzechWord": "Insert the word"
+  },
+  "ExercisesFilter": {
+    "filter": "Filter",
+    "topics": "Topics",
+    "languageLevel": "Language level",
+    "tags": "Tags",
+    "selectTopic": "Select a topic",
+    "selectTag": "Select a tag",
+    "selectLanguageLevel": "Select a language level",
+    "apply": "Apply",
+    "reset": "Clear",
+    "exerciseType": "Exercise type",
+    "selectExerciseType": "Select exercise type"
+  },
+  "ExercisesGeneration": {
+    "topics": "Topics",
+    "languageLevel": "Language levels",
+    "tags": "Tags",
+    "selectTopic": "Select a topic",
+    "selectTag": "Select a tag",
+    "selectLanguageLevel": "Select a language level",
+    "exerciseType": "Exercise type",
+    "selectExerciseType": "Select exercise type",
+    "number": "Number",
+    "onlyNews": "Show only new",
+    "generate": "Generate exercises",
+    "save": "Generate",
+    "close": "Close",
+    "createSentence": "Build a sentence",
+    "insertWordInRightForm": "Insert word in correct form",
+    "insertWordToText": "Insert words into the text",
+    "matchingWordAndItsTranslate": "Match with translation",
+    "writeCzechWord": "Translate word to czech"
+  },
+  "Exercise": {
+    "answer": "Your answer:",
+    "save": "Save result",
+    "show": "Show correct answer",
+    "wrong": "Wrong answer",
+    "correct": "Correct answer",
+    "next": "Next exercise",
+    "finish": "Finish",
+    "insertWordInRightForm1": "Insert the word \"",
+    "insertWordInRightForm2": "\" in the correct form",
+    "insertWordToText": "Insert the missing words from the options into the text",
+    "createSentence": "Make a sentence from the given words",
+    "matchingWordAndItsTranslate": "Find the correct translation of the word",
+    "writeCzechWord": "Write the translation of the word"
+  }
+};
 export default messages;

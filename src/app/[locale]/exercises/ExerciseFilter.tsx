@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { LanguageLevel, Topic, UserTag, FilterExerciseDto } from '../../../../types';
+import { LanguageLevel, Topic, UserTag, ExerciseType, FilterExerciseDto } from '../../../../types';
+import { useTranslations } from 'next-intl';
 
 interface ExerciseFilterProps {
   jwtToken: string | null;
@@ -11,12 +12,19 @@ interface ExerciseFilterProps {
 const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ jwtToken, onApplyFilter }) => {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [tags, setTags] = useState<UserTag[]>([]);
+  const [result, setResult] = useState<number | undefined>(undefined);
+  const [exerciseTypes, setExerciseTypes] = useState<ExerciseType[]>([]);
+  const [languageLevels, setLanguageLevels] = useState<LanguageLevel[]>([]);
 
   const [selectedTopics, setSelectedTopics] = useState<Topic[]>([]);
   const [selectedTags, setSelectedTags] = useState<UserTag[]>([]);
+  const [selectedExerciseTypes, setSelectedExerciseTypes] = useState<ExerciseType[]>([]);
+  const [selectedLanguageLevels, setSelectedLanguageLevels] = useState<LanguageLevel[]>([]);
+
+  const t = useTranslations('ExercisesFilter');
 
   const fetchTopics = async () => {
-    const response = await fetch('https://localhost:44376/api/Topic/', {
+    const response = await fetch('https://localhost:44376/api/Topic/general', {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
         'Content-Type': 'application/json',
@@ -61,9 +69,11 @@ const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ jwtToken, onApplyFilter
   };
 
   return (
-    <div className="w-64 p-4 border-r border-gray-200 bg-gray-50">
+    <div className="w-70 ml-5">
+    <div className="w-76 p-4 bg-beige rounded-md h-fit fixed">
       <div className="mb-4">
-        <label className="block font-medium mb-2">Темы</label>
+        <h1 className='text-2xl text-center mb-5 text-green font-bold'>{t('filter')}</h1>
+        <label className="block font-medium mb-2">{t('topics')}</label>
         <select
           onChange={(e) => {
             const selected = topics.find((t) => t.Guid === e.target.value);
@@ -71,7 +81,7 @@ const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ jwtToken, onApplyFilter
           }}
           className="w-full p-2 border rounded"
         >
-          <option value="">Выберите тему</option>
+          <option value="">{t('selectTopic')}</option>
           {topics.map((topic) => (
             <option key={topic.Guid} value={topic.Guid}>
               {topic.Name}
@@ -90,7 +100,7 @@ const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ jwtToken, onApplyFilter
       </div>
 
       <div className="mb-4">
-        <label className="block font-medium mb-2">Тэги</label>
+        <label className="block font-medium mb-2">{t('tags')}</label>
         <select
           onChange={(e) => {
             const selected = tags.find((t) => t.Guid === e.target.value);
@@ -98,7 +108,61 @@ const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ jwtToken, onApplyFilter
           }}
           className="w-full p-2 border rounded"
         >
-          <option value="">Выберите тэг</option>
+          <option value="">{t('selectTag')}</option>
+          {tags.map((tag) => (
+            <option key={tag.Guid} value={tag.Guid}>
+              {tag.Name}
+            </option>
+          ))}
+        </select>
+
+        <div className="mt-2">
+          {selectedTags.map((tag) => (
+            <div key={tag.Guid} className="flex items-center justify-between bg-white px-2 py-1 mt-1 rounded shadow">
+              <span>{tag.Name}</span>
+              <button onClick={() => handleRemove(tag.Guid, selectedTags, setSelectedTags)}>✕</button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-medium mb-2">{t('languageLevels')}</label>
+        <select
+          onChange={(e) => {
+            const selected = languageLevels.find((t) => t.Guid === e.target.value);
+            if (selected) handleSelect(selected, selectedLanguageLevels, setSelectedLanguageLevels);
+          }}
+          className="w-full p-2 border rounded"
+        >
+          <option value="">{t('selectLanguageLevel')}</option>
+          {tags.map((tag) => (
+            <option key={tag.Guid} value={tag.Guid}>
+              {tag.Name}
+            </option>
+          ))}
+        </select>
+
+        <div className="mt-2">
+          {selectedTags.map((tag) => (
+            <div key={tag.Guid} className="flex items-center justify-between bg-white px-2 py-1 mt-1 rounded shadow">
+              <span>{tag.Name}</span>
+              <button onClick={() => handleRemove(tag.Guid, selectedTags, setSelectedTags)}>✕</button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-medium mb-2">{t('tags')}</label>
+        <select
+          onChange={(e) => {
+            const selected = tags.find((t) => t.Guid === e.target.value);
+            if (selected) handleSelect(selected, selectedTags, setSelectedTags);
+          }}
+          className="w-full p-2 border rounded"
+        >
+          <option value="">{t('selectTag')}</option>
           {tags.map((tag) => (
             <option key={tag.Guid} value={tag.Guid}>
               {tag.Name}
@@ -126,9 +190,9 @@ const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ jwtToken, onApplyFilter
             CompleteResults: []
           })
         }
-        className="w-full mt-4 bg-green text-white py-2 rounded hover:bg-green-dark transition"
+        className="w-full mb-2 px-4 py-2 text-l font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
       >
-        Применить фильтр
+        {t('apply')}
       </button>
 
       <button
@@ -142,10 +206,11 @@ const ExerciseFilter: React.FC<ExerciseFilterProps> = ({ jwtToken, onApplyFilter
             ExerciseTypes: [],
             CompleteResults: [] });
         }}
-        className="w-full mt-2 bg-gray-300 text-black py-2 rounded hover:bg-gray-400 transition"
+        className="w-full px-4 py-2 text-l font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
       >
-        Сбросить фильтр
+        {t('reset')}
       </button>
+    </div>
     </div>
   );
 };

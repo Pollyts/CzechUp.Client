@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Rule } from '../../../../types';
+import Loading from '../../../../components/Loading'
 
 
 const RulesPage = () => {
@@ -45,7 +46,7 @@ const RulesPage = () => {
   }, [jwtToken]);
 
   if (loading) {
-    return <div className="text-center py-4">Loading...</div>;
+      return <Loading></Loading>;
   }
 
   if (error) {
@@ -53,7 +54,7 @@ const RulesPage = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="container max-w-5xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-semibold text-black">{t('rules')}</h1>
       </div>

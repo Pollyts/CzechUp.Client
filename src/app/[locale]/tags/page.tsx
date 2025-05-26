@@ -6,6 +6,9 @@ import { useRouter } from 'next/navigation';
 import EditTagModal from './EditTagModal';
 import CreateTagModal  from './CreateTagModal';
 import { UserTag, TagType } from '../../../../types';
+import { Trash2 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import Loading from '../../../../components/Loading'
 
 const TagsPage = () => {
   const [tags, setTags] = useState<UserTag[]>([]);
@@ -49,10 +52,14 @@ const TagsPage = () => {
     fetchTags();
   }, [jwtToken]);
 
-  const handleDeleteTag = async (guid: string) => {
-    if (!confirm("Удалить этот тег?")) return;
-
-    try {
+const handleDeleteTag = (guid: string) => {
+  toast((tToast) => (
+    <span>
+      {t('delete')}
+      <div className="mt-4 flex justify-around">
+        <button
+          onClick={async () => {
+            try {
       const response = await fetch(`https://localhost:44376/api/Tag?guid=${guid}`, {
         method: "DELETE",
         headers: {
@@ -64,22 +71,44 @@ const TagsPage = () => {
       if (!response.ok) throw new Error("Failed to delete tag");
 
       fetchTags();
+      toast.dismiss(tToast.id)
     } catch (err) {
       console.error(err);
       alert("Ошибка при удалении тэга");
     }
-  };
+          }}
+          className="px-8 py-1 r-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
+        >
+          {t('yes')}
+        </button>
+        <button
+          onClick={() => toast.dismiss(tToast.id)}
+          className="px-8 py-1 r-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
+        >
+          {t('no')}
+        </button>
+      </div>
+    </span>
+  ), {
+    duration: 5000,
+  });
+};
 
-  if (loading) return <div className="text-center py-4">Loading...</div>;
+
+  
+
+  if (loading) {
+          return <Loading></Loading>;
+      }
   if (error) return <div className="text-center text-red-600 py-4">{error}</div>;
 
   return (
-    <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="container max-w-5xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-semibold text-black">{t('dictionary')}</h1>
         <button
           onClick={() => setModalOpen(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
         >
           {t('create')}
         </button>
@@ -90,29 +119,22 @@ const TagsPage = () => {
           {tags.map((tag) => (
             <tr
               key={tag.Guid}
-              className="hover:bg-gray-100 transition-all"
+              className="hover:bg-gray-100 transition-all"              
             >
               <td
                 className="p-3 border-b border-gray cursor-pointer"
+                onClick={() => {
+                    setEditTag({ ...tag });
+                    setEditModalOpen(true);
+                  }}
               >
                 {tag.Name}
               </td>
               <td className="p-3 border-b border-gray text-right space-x-2">
-                <button
-                  className="text-blue-600 hover:underline"
-                  onClick={() => {
-                    setEditTag({ ...tag });
-                    setEditModalOpen(true);
-                  }}
-                >
-                  ✏️
-                </button>
-                <button
-                  className="text-red-600 hover:underline"
-                  onClick={() => handleDeleteTag(tag.Guid)}
-                >
-                  🗑️
-                </button>
+                <Trash2
+                       onClick={() => handleDeleteTag(tag.Guid)}
+                      className="text-green cursor-pointer inline-block"
+                    ></Trash2>
               </td>
             </tr>
           ))}

@@ -36,8 +36,8 @@ export interface UserRuleNote extends IDbEntity{
 
 export enum TagTypeEnum {
     Word = 0,
-    Rule = 1,
-    Topic = 2,
+    // Rule = 1,
+    // Topic = 2,
     Exercise = 3,
 }
   
@@ -93,6 +93,7 @@ export interface SearchedWordDto extends IDbEntity {
 export interface FilterWordDto {
   Tags: string[];
   Topics: string[];
+  LanguageLevels: string[];
 }
 
 export interface FilterExerciseDto

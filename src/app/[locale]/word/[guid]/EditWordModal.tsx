@@ -16,6 +16,7 @@ interface EditWordModalProps {
     const [wordDto, setWordDto] = useState<WordDto>(word);
     const [tags, setTags] = useState<UserTag[]>([]);
     
+    
   useEffect(() => {
     const fetchDropdownData = async () => {
       try {

@@ -1,4 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import "tailwindcss";
+
+/* @font-face {
+  font-family: Mulish;
+  src: url("../public/fonts/Mulish-SemiBold.ttf") format("ttf");
+} */
 
 @theme {
   --color-white: #FEF9F3;
@@ -6,4 +12,17 @@
   --color-green: #2E7758;
   --color-beige: #E8D9CA;
   --color-gray: #CDC8C2;
+
+  --font-display: "Mulish"; 
+  --font-mulish: "Mulish"; 
+  --font-lora: "Lora";   
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

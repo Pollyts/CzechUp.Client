@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { LanguageLevel, Topic, WordDto, WordExampleDto, UserTag, ExerciseType, ExerciseGeneratorDto } from '../../../../types';
+import { useTranslations } from 'next-intl';
 
 interface ExerciseGenerationModalProps {
   jwtToken: string | null;
@@ -24,13 +25,14 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
     Count: 1,
     OnlyNew: true,
   });
+  const t = useTranslations('ExercisesGeneration');
 
   const EXERCISE_TYPE_LABELS: { [key in ExerciseType]: string } = {
-    [ExerciseType.CreateSentence]: "Построить предложение",
-    [ExerciseType.InsertWordInRightForm]: "Слово в правильной форме",
-    [ExerciseType.InsertWordToText]: "Вставить слова в текст",
-    [ExerciseType.MatchingWordAndItsTranslate]: "Соединить с переводом",
-    [ExerciseType.WriteCzechWord]: "Вставить слово",
+    [ExerciseType.CreateSentence]: t('createSentence'),
+    [ExerciseType.InsertWordInRightForm]: t('insertWordInRightForm'),
+    [ExerciseType.InsertWordToText]: t('insertWordToText'),
+    [ExerciseType.MatchingWordAndItsTranslate]: t('matchingWordAndItsTranslate'),
+    [ExerciseType.WriteCzechWord]: t('writeCzechWord'),
   };
 
   useEffect(() => {
@@ -95,11 +97,12 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md space-y-4">
-        <h2 className="text-2xl font-semibold">Сгенерировать упражнения</h2>
+      <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md space-y-4 max-h-[90vh] overflow-y-auto hide-scrollbar">
+
+        <h2 className="text-2xl font-semibold">{t('generate')}</h2>
 
         <div className="space-y-2">
-          <label className="block font-medium">Тема:</label>
+          <label className="block font-medium">{t('topics')}</label>
 
           <select
             value=""
@@ -111,7 +114,7 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
             }}
             className="w-full p-2 border border-gray-300 rounded-lg"
           >
-            <option value="">Выберите тему</option>
+            <option value="">{t('selectTopic')}</option>
             {topics.map((topic) => (
               <option key={topic.Guid} value={topic.Guid}>
                 {topic.Name}
@@ -120,29 +123,32 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
           </select>
 
           <div className="flex flex-wrap gap-2">
-            {exerciseGenerator.Topics.map((topicName, index) => (
-              <span
-                key={index}
-                className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full"
-              >
-                {topicName}
-                <button
-                  onClick={() => {
-                    const updatedTopics = exerciseGenerator.Topics.filter((_, i) => i !== index);
-                    setExerciseGenerator({ ...exerciseGenerator, Topics: updatedTopics });
-                  }}
-                  className="ml-2 text-blue-600 hover:text-blue-800"
-                  title="Удалить тему"
-                >
-                  ✖
-                </button>
-              </span>
-            ))}
+           {exerciseGenerator.Topics.map((topicGuid, index) => {
+  const topic = topics.find((t) => t.Guid === topicGuid);
+  return (
+    <span
+      key={index}
+      className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full"
+    >
+      {topic?.Name ?? topicGuid}
+      <button
+        onClick={() => {
+          const updatedTopics = exerciseGenerator.Topics.filter((_, i) => i !== index);
+          setExerciseGenerator({ ...exerciseGenerator, Topics: updatedTopics });
+        }}
+        className="ml-2 text-blue-600 hover:text-blue-800"
+        title="Удалить тему"
+      >
+        ✖
+      </button>
+    </span>
+  );
+})}
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="block font-medium">Тип упражнения:</label>
+          <label className="block font-medium">{t('exerciseType')}</label>
 
           <select
             value=""
@@ -162,6 +168,7 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
             }}
             className="w-full p-2 border border-gray-300 rounded-lg"
           >
+            <option value="">{t('selectExerciseType')}</option>
             {Object.values(ExerciseType)
   .filter((v) => typeof v === 'number')
   .map((value) => (
@@ -195,7 +202,7 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
 
 
         <div className="space-y-2">
-          <label className="block font-medium">Уровень языка:</label>
+          <label className="block font-medium">{t('languageLevel')}</label>
 
           <select
             value=""
@@ -207,7 +214,7 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
             }}
             className="w-full p-2 border border-gray-300 rounded-lg"
           >
-            <option value="">Выберите уровень языка:</option>
+            <option value="">{t('selectLanguageLevel')}</option>
             {languageLevels.map((level) => (
               <option key={level.Guid} value={level.Guid}>
                 {level.Name}
@@ -216,30 +223,34 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
           </select>
 
           <div className="flex flex-wrap gap-2">
-            {exerciseGenerator.LanguageLevels.map((levelName, index) => (
-              <span
-                key={index}
-                className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full"
-              >
-                {levelName}
-                <button
-                  onClick={() => {
-                    const updatedLevels = exerciseGenerator.LanguageLevels.filter((_, i) => i !== index);
-                    setExerciseGenerator({ ...exerciseGenerator, Tags: updatedLevels });
-                  }}
-                  className="ml-2 text-blue-600 hover:text-blue-800"
-                  title="Удалить уровень"
-                >
-                  ✖
-                </button>
-              </span>
-            ))}
+            {exerciseGenerator.LanguageLevels.map((levelGuid, index) => {
+  const level = languageLevels.find((l) => l.Guid === levelGuid);
+  return (
+    <span
+      key={index}
+      className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full"
+    >
+      {level?.Name ?? levelGuid}
+      <button
+        onClick={() => {
+          const updatedLevels = exerciseGenerator.LanguageLevels.filter((_, i) => i !== index);
+          setExerciseGenerator({ ...exerciseGenerator, LanguageLevels: updatedLevels });
+        }}
+        className="ml-2 text-blue-600 hover:text-blue-800"
+        title="Удалить уровень"
+      >
+        ✖
+      </button>
+    </span>
+  );
+})}
+
           </div>
         </div>
 
 
         <div className="space-y-2">
-          <label className="block font-medium">Теги:</label>
+          <label className="block font-medium">{t('tags')}</label>
 
           <select
             value=""
@@ -251,7 +262,7 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
             }}
             className="w-full p-2 border border-gray-300 rounded-lg"
           >
-            <option value="">Выберите тег</option>
+            <option value="">{t('selectTag')}</option>
             {tags.map((tag) => (
               <option key={tag.Guid} value={tag.Guid}>
                 {tag.Name}
@@ -260,24 +271,28 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
           </select>
 
           <div className="flex flex-wrap gap-2">
-            {exerciseGenerator.Tags.map((tagName, index) => (
-              <span
-                key={index}
-                className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full"
-              >
-                {tagName}
-                <button
-                  onClick={() => {
-                    const updatedTags = exerciseGenerator.Tags.filter((_, i) => i !== index);
-                    setExerciseGenerator({ ...exerciseGenerator, Tags: updatedTags });
-                  }}
-                  className="ml-2 text-blue-600 hover:text-blue-800"
-                  title="Удалить тег"
-                >
-                  ✖
-                </button>
-              </span>
-            ))}
+            {exerciseGenerator.Tags.map((tagGuid, index) => {
+  const tag = tags.find((t) => t.Guid === tagGuid);
+  return (
+    <span
+      key={index}
+      className="flex items-center bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full"
+    >
+      {tag?.Name ?? tagGuid}
+      <button
+        onClick={() => {
+          const updatedTags = exerciseGenerator.Tags.filter((_, i) => i !== index);
+          setExerciseGenerator({ ...exerciseGenerator, Tags: updatedTags });
+        }}
+        className="ml-2 text-blue-600 hover:text-blue-800"
+        title="Удалить тег"
+      >
+        ✖
+      </button>
+    </span>
+  );
+})}
+
           </div>
         </div>
 
@@ -285,7 +300,7 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
   {/* Счётчик */}
   <div className="flex items-center gap-2">
     <label htmlFor="count" className="text-sm font-medium text-gray-700">
-      Количество:
+      {t('number')}
     </label>
     <input
       id="count"
@@ -300,7 +315,6 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
     />
   </div>
 
-  {/* Переключатель onlyNew */}
   <div className="flex items-center gap-2">
     <input
       id="onlyNew"
@@ -313,7 +327,7 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
     />
     <label htmlFor="onlyNew" className="text-sm text-gray-700">
-      Показывать только новые
+      {t('onlyNews')}
     </label>
   </div>
 </div>
@@ -321,15 +335,15 @@ const ExerciseGenerationModal = ({ jwtToken, onClose, onSave }: ExerciseGenerati
         <div className="flex justify-end gap-4 pt-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+            className="px-4 py-2 text-l font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Закрыть
+            {t('close')}
           </button>
           <button
             onClick={handleAddWord}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            className="px-4 py-2 text-l font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Добавить
+            {t('save')}
           </button>
         </div>
       </div>

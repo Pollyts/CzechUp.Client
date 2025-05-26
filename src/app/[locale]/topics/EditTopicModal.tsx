@@ -4,6 +4,7 @@
 
 import { useState } from "react";
 import { Topic } from '../../../../types';
+import { useTranslations } from 'next-intl';
 
 interface EditTopicModalProps {
   topic: Topic;
@@ -14,6 +15,7 @@ interface EditTopicModalProps {
 
 const EditTopicModal = ({ topic, onClose, onSave, jwtToken }: EditTopicModalProps) => {
   const [editedTopic, setEditedTopic] = useState<Topic>(topic);
+  const t = useTranslations('Topics');
 
   const handleUpdate = async () => {
     if (!editedTopic.Name.trim()) return;
@@ -33,14 +35,13 @@ const EditTopicModal = ({ topic, onClose, onSave, jwtToken }: EditTopicModalProp
       onSave();
     } catch (err) {
       console.error(err);
-      alert("Ошибка при редактировании темы");
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">Редактировать тему</h2>
+        <h2 className="text-2xl font-semibold mb-4">{t('edit')}</h2>
         <input
           type="text"
           value={editedTopic.Name}
@@ -50,15 +51,15 @@ const EditTopicModal = ({ topic, onClose, onSave, jwtToken }: EditTopicModalProp
         <div className="flex justify-end gap-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+            className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Отмена
+            {t('cancel')}
           </button>
           <button
             onClick={handleUpdate}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Сохранить
+            {t('save')}
           </button>
         </div>
       </div>

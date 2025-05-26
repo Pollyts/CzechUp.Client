@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import Loading from '../../../components/Loading'
 
 export default function LocaleHomePage() {
   const router = useRouter()
@@ -22,5 +23,5 @@ export default function LocaleHomePage() {
     }
   }, [pathname, router])
 
-  return null // Пустая страница — сразу редиректим
+  return <Loading/>
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 
 interface CreateTagModalProps {
   jwtToken: string | null;
@@ -10,21 +11,22 @@ interface CreateTagModalProps {
 
 enum TagTypeEnum {
   Word = 0,
-  Rule = 1,
-  Topic = 2,
+  // Rule = 1,
+  // Topic = 2,
   Exercise = 3,
 }
-
-const TAG_TYPE_LABELS: { [key in TagTypeEnum]: string } = {
-  [TagTypeEnum.Word]: "Слово",
-  [TagTypeEnum.Rule]: "Правило",
-  [TagTypeEnum.Topic]: "Тема",
-  [TagTypeEnum.Exercise]: "Упражнение",
-};
 
 const CreateTagModal = ({ jwtToken, onClose, onCreate }: CreateTagModalProps) => {
   const [newTagName, setNewTagName] = useState('');
   const [selectedTypes, setSelectedTypes] = useState<TagTypeEnum[]>([]);
+  const t = useTranslations('Tags');
+
+  const TAG_TYPE_LABELS: { [key in TagTypeEnum]: string } = {
+  [TagTypeEnum.Word]: t('word'),
+  // [TagTypeEnum.Rule]: t('rule'),
+  // [TagTypeEnum.Topic]: t('topic'),
+  [TagTypeEnum.Exercise]: t('exercise'),
+};
 
   const handleCheckboxChange = (type: TagTypeEnum) => {
     setSelectedTypes((prev) =>
@@ -61,31 +63,31 @@ const CreateTagModal = ({ jwtToken, onClose, onCreate }: CreateTagModalProps) =>
       onCreate();
     } catch (err) {
       console.error(err);
-      alert("Ошибка при создании темы");
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">Создать новую тему</h2>
+        <h2 className="text-2xl font-semibold mb-4">{t('create')}</h2>
         
         <input
           type="text"
-          placeholder="Название темы"
+          placeholder={t('name')}
           value={newTagName}
           onChange={(e) => setNewTagName(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-lg mb-4"
         />
 
         <div className="mb-4">
-          <p className="font-semibold mb-2">Типы:</p>
+          <p className="font-semibold mb-2">{t('types')}</p>
           <div className="flex flex-wrap gap-2">
             {Object.entries(TagTypeEnum)
-              .filter(([key]) => isNaN(Number(key))) // Оставить только названия, не числовые ключи
+              .filter(([key]) => isNaN(Number(key)))
               .map(([key, value]) => (
                 <label key={value} className="flex items-center gap-2">
                   <input
+                  className="cursor-pointer"
                     type="checkbox"
                     checked={selectedTypes.includes(value as TagTypeEnum)}
                     onChange={() => handleCheckboxChange(value as TagTypeEnum)}
@@ -99,15 +101,15 @@ const CreateTagModal = ({ jwtToken, onClose, onCreate }: CreateTagModalProps) =>
         <div className="flex justify-end gap-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+            className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Закрыть
+            {t('cancel')}
           </button>
           <button
             onClick={handleAddTag}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Добавить
+            {t('save')}
           </button>
         </div>
       </div>

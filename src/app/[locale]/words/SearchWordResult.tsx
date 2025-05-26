@@ -62,9 +62,6 @@ const SearchWordResultModal = ({ data, onClose, onSave, jwtToken }: SearchWordRe
             </ul>
           </div>
 
-          <p><span className="font-semibold">Level:</span> {wordData?.LanguageLevel}</p>
-          <p><span className="font-semibold">Topic:</span> {wordData?.Topic}</p>
-
           <div>
             <button
               onClick={() => setExamplesOpen(!examplesOpen)}
@@ -94,7 +91,7 @@ const SearchWordResultModal = ({ data, onClose, onSave, jwtToken }: SearchWordRe
             <div className="pt-4">
               <button
                 onClick={SaveWord}
-                className="bg-green text-white px-4 py-2 rounded hover:bg-green-dark transition"
+                className="bg-green cursor-pointer text-white px-4 py-2 rounded hover:bg-green-dark transition"
               >
                 Добавить в словарь
               </button>

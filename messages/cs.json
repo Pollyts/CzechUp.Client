@@ -1,70 +1,187 @@
 {
-    "SignInForm":{
-      "signIn": "Přihlasit se",
-      "password": "Heslo",
-      "email": "Elektronická pošta",
-      "registration": "Registrace",
-      "resetPassword": "Resetovat heslo"
-    },
-
-    "RegistrationForm":{
-      "register": "Zaregistrovat se",
-      "title": "Registrace",
-      "email": "Zadejte svůj e-mail",
-      "password": "Zadejte své heslo",
-      "langlevel": "Vyberte požadovanou úroveň češtiny",
-      "origlang": "Vyberte jazyk pro překlad slov"
-    },
-
-    "LocaleSwitcher": {
-      "label": "Change language",
-      "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
-    },
-
-    "Navigation": {
-      "words": "Slovník",
-      "topics": "Témata",
-      "rules": "Pravidla",
-      "exercises": "Cvičení",
-      "tags": "Tagy"
-    },
-
-    "Words": {
-      "dictionary": "Slovník",
-      "export": "Export",
-      "enterCzechWord": "Zadejte slovo v češtině",
-      "createWord": "Přidat slovo",
-      "searchWord": "Hledat"
-    },
-
-    "Word": {
-      "level": "Úroveň",
-      "topic": "Téma",
-      "loading": "Načítání",
-      "noTranslations": "Nejsou překlady",
-      "topics": "Témata",
-      "tags": "Tagy",
-      "languageLevel": "Úroveň jazýka",
-      "examples": "Příklady",
-      "original": "Původní věta",
-      "translated": "Překlad",
-      "edit": "Upravit",
-      "wordForms": "Slovní tvary"
-    },
-
-    "WordForms": {
-      "Number": "Číslo",
-      "Negation": "Negace",
-      "Gender": "Rod",
-      "Aspect": "Vid",
-      "Type": "Typ (Mód)",
-      "Person": "Osoba",
-      "Reset": "Resetovat",
-      "Degree": "Stupeň",
-      "Case": "Pád"
-    },
-
-    "Loading":{
-      "loading": "Načítání"
-    }
+  "SignInForm": {
+    "signIn": "Přihlasit se",
+    "password": "Heslo",
+    "email": "Elektronická pošta",
+    "registration": "Registrace",
+    "resetPassword": "Resetovat heslo"
+  },
+  "Account": {
+    "changeData": "Změnit údaje",
+  "password": "Heslo",
+  "email": "E-mail",
+  "ok": "Aktualizovat údaje"
+  },
+  "ResetPassword": {
+    "writeEmail": "Enter your email address and we will send you instructions to reset your password",
+    "send": "Odeslat požadavek",
+    "email": "Elektronická pošta",
+     "success": "Váš požadavek na změnu hesla byl úspěšně odeslán.",
+  "error": "Při odesílání požadavku došlo k chybě. Zkontrolujte údaje a zkuste to znovu."
+  },
+  "RegistrationForm": {
+    "register": "Zaregistrovat se",
+    "title": "Registrace",
+    "email": "Zadejte svůj e-mail",
+    "password": "Zadejte své heslo",
+    "langlevel": "Vyberte požadovanou úroveň češtiny",
+    "origlang": "Vyberte jazyk pro překlad slov",
+    "success": "Registrace byla úspěšná. Probíhá přesměrování…",
+    "error": "Chyba při registraci",
+    "registering": "Probíhá registrace... Čekejte, prosím."
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, cs {cs Čeština} en {🇺🇸 English} ru {ru Русский} other {Unknown}}"
+  },
+  "Navigation": {
+    "words": "Slovník",
+    "topics": "Témata",
+    "rules": "Pravidla",
+    "exercises": "Cvičení",
+    "tags": "Tagy"
+  },
+  "Words": {
+    "dictionary": "Slovník",
+    "export": "Export",
+    "enterCzechWord": "Zadejte slovo v češtině",
+    "createWord": "Přidat slovo",
+    "searchWord": "Hledat"
+  },
+  "Word": {
+    "level": "Úroveň",
+    "topic": "Téma",
+    "loading": "Načítání",
+    "noTranslations": "Nejsou překlady",
+    "topics": "Témata",
+    "tags": "Tagy",
+    "languageLevel": "Úroveň jazýka",
+    "examples": "Příklady",
+    "original": "Původní věta",
+    "translated": "Překlad",
+    "edit": "Upravit",
+    "wordForms": "Slovní tvary"
+  },
+  "WordForms": {
+    "Number": "Číslo",
+    "Negation": "Negace",
+    "Gender": "Rod",
+    "Aspect": "Vid",
+    "Type": "Typ (Mód)",
+    "Person": "Osoba",
+    "Reset": "Resetovat",
+    "Degree": "Stupeň",
+    "Case": "Pád"
+  },
+  "Loading": {
+    "loading": "Načítání..."
+  },
+  "WordsFilter": {
+    "filter": "Filtr",
+    "topics": "Témata",
+    "languageLevel": "Jazyková úroveň",
+    "tags": "Tagy",
+    "selectTopic": "Vyberte téma",
+    "selectTag": "Vyberte tag",
+    "selectLanguageLevel": "Vyberte úroveň jazyka",
+    "apply": "Zobrazit",
+    "reset": "Vymazat"
+  },
+  "Topics": {
+    "dictionary": "Seznam témat",
+    "create": "Přidat téma",
+    "edit": "Změnit téma",
+    "cancel": "Zrušit",
+    "save": "Uložit",
+    "name": "Název tématu",
+    "delete": "Opravdu si přejete smazat téma? Všechna slova přiřazená k tomuto tématu zůstanou, ale už k němu nebudou patřit.",
+    "yes": "Ano",
+    "no": "Ne"
+  },
+  "Tags": {
+    "dictionary": "Seznam tagů",
+    "create": "Přidat tag",
+    "edit": "Upravit tag",
+    "cancel": "Zrušit",
+    "save": "Uložit",
+    "name": "Název tagu",
+    "delete": "Opravdu si přejete smazat tag? Všechna slova přiřazená k tomuto tagu zůstanou, ale už k němu nebudou patřit.",
+    "yes": "Ano",
+    "no": "Ne",
+    "word": "Slovník",
+    "rule": "Témata",
+    "topic": "Pravidla",
+    "exercise": "Cvičení",
+    "types": "Zobrazit pro sekce:"
+  },
+  "Rules": {
+    "rules": "Pravidla",
+    "open": "Zobrazit pravidlo",
+    "save": "Uložit",
+    "notes": "Poznámky",
+    "successSave": "Poznámka byla úspěšně uložena"
+  },
+  "Exercises": {
+    "dictionary": "Seznam mých cvičení",
+    "lastOpen": "Naposledy otevřeno",
+    "exerciseType": "Typ cvičení",
+    "result": "Výsledek",
+    "generate": "Generovat cvičení",
+    "delete": "Opravdu si přejete smazat cvičení?",
+    "yes": "Ano",
+    "no": "Ne",
+    "createSentence": "Vytvořit větu",
+    "insertWordInRightForm": "Slovo ve správném tvaru",
+    "insertWordToText": "Vložit slova do textu",
+    "matchingWordAndItsTranslate": "Spojit se správným překladem",
+    "writeCzechWord": "Doplňit slovo"
+  },
+  "ExercisesFilter": {
+    "filter": "Filtr",
+    "topics": "Témata",
+    "languageLevel": "Úroveň jazyka",
+    "tags": "Tagy",
+    "selectTopic": "Vyberte téma",
+    "selectTag": "Vyberte tag",
+    "selectLanguageLevel": "Vyberte úroveň jazyka",
+    "apply": "Použít",
+    "reset": "Vymazat",
+    "exerciseType": "Typ cvičení",
+    "selectExerciseType": "Vyberte typ cvičení"
+  },
+  "ExercisesGeneration": {
+    "topics": "Témata",
+    "languageLevel": "Úrovně jazyka",
+    "tags": "Tagy",
+    "selectTopic": "Vyberte téma",
+    "selectTag": "Vyberte tag",
+    "selectLanguageLevel": "Vyberte úroveň jazyka",
+    "exerciseType": "Typ cvičení",
+    "selectExerciseType": "Vyberte typ cvičení",
+    "number": "Počet",
+    "onlyNews": "Zobrazit pouze nová",
+    "generate": "Generovat cvičení",
+    "save": "Generovat",
+    "close": "Zavřít",
+    "createSentence": "Vytvořit větu",
+    "insertWordInRightForm": "Vložit slovo ve správném tvaru",
+    "insertWordToText": "Vložit slova do textu",
+    "matchingWordAndItsTranslate": "Spojit slovo se správným překladem",
+    "writeCzechWord": "Napsat překlad slova"
+  },
+  "Exercise": {
+    "answer": "Vaše odpověď:",
+    "save": "Uložit výsledek",
+    "show": "Ukázat správnou odpověď",
+    "wrong": "Špatná odpověď",
+    "correct": "Správná odpověď",
+    "next": "Další cvičení",
+    "finish": "Dokončit",
+    "insertWordInRightForm1": "Vložte slovo \"",
+    "insertWordInRightForm2": "\" ve správném tvaru",
+    "insertWordToText": "Vložte do textu chybějící slova z nabídky",
+    "createSentence": "Sestavte větu z nabízených slov",
+    "matchingWordAndItsTranslate": "Najděte správný překlad slova",
+    "writeCzechWord": "Napište překlad slova"
   }
+}

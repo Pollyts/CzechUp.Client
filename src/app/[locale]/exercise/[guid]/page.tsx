@@ -2,10 +2,10 @@
 
 import { useEffect, useState, useMemo  } from "react";
 import { useParams, useSearchParams, useRouter  } from 'next/navigation';
-import { ExerciseDto, ExerciseResultDto } from '../../../../../types';
+import { ExerciseDto, ExerciseResultDto, ExerciseType } from '../../../../../types';
+import { useTranslations } from 'next-intl';
 
 function shuffleString(str: string): string[] {
-  console.log("вертим");
   const words = str.split(';');
 
   for (let i = words.length - 1; i > 0; i--) {
@@ -25,11 +25,21 @@ export default function ExercisePage() {
   const [exercise, setExercise] = useState<ExerciseDto>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [userAnswer, setUserAnswer] = useState<string[]>([]);
+  const [userAnswerWord, setUserAnswerWord] = useState<string>('');
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
   const [answerOptions, setAnswerOptions] = useState<string[]>([]);
+  const t = useTranslations('Exercise');
 
   const jwtToken = localStorage.getItem("token");
+
+  const EXERCISE_TYPE_TITLES: { [key in ExerciseType]: string } = {
+  [ExerciseType.CreateSentence]: t('createSentence'),
+    [ExerciseType.InsertWordInRightForm]: t('insertWordInRightForm'),
+    [ExerciseType.InsertWordToText]: t('insertWordToText'),
+    [ExerciseType.MatchingWordAndItsTranslate]: t('matchingWordAndItsTranslate'),
+    [ExerciseType.WriteCzechWord]: t('writeCzechWord'),
+};
 
   useEffect(() => {
     const fetchExercise = async () => {
@@ -90,22 +100,48 @@ export default function ExercisePage() {
     }
   };
 
+
   const handleWordClick = (word: string) => {
+  if (exercise!.ExerciseType === ExerciseType.MatchingWordAndItsTranslate) {
+    // Заменить существующий ответ
+    setUserAnswer([word]);
+  } else {
+    // Добавить, только если ещё не добавлен
     if (!userAnswer.includes(word)) {
       setUserAnswer([...userAnswer, word]);
     }
-  };
+  }
+};
   
   const removeWord = (word: string) => {
     setUserAnswer(userAnswer.filter(w => w !== word));
   };
   
   const handleSaveAnswer = async () => {
-    const joinedAnswer = userAnswer.join(', ');
+    var isAnswerCorrect=false;
+    if((exercise!.ExerciseType === ExerciseType.InsertWordToText ||
+exercise!.ExerciseType === ExerciseType.CreateSentence) ){
+  var joinedAnswer = "";
+  if(exercise!.ExerciseType === ExerciseType.CreateSentence){
+    joinedAnswer = userAnswer.join(' ');
+  }
+  if(exercise!.ExerciseType === ExerciseType.InsertWordToText){
+joinedAnswer = userAnswer.join(', ');
+  }
+ 
     console.log(joinedAnswer);
     console.log(exercise!.Answer);
-    const isAnswerCorrect = joinedAnswer === exercise!.Answer;
-  setIsCorrect(isAnswerCorrect);
+    isAnswerCorrect = joinedAnswer === exercise!.Answer;  
+}
+else if((exercise!.ExerciseType === ExerciseType.MatchingWordAndItsTranslate ))
+{
+  isAnswerCorrect = userAnswer[0] === exercise!.Answer;  
+}else{
+  isAnswerCorrect = userAnswerWord === exercise!.Answer;
+}
+
+setIsCorrect(isAnswerCorrect);
+    
 
   const resultDto: ExerciseResultDto = {
     Guid: exercise!.Guid,      
@@ -142,39 +178,61 @@ export default function ExercisePage() {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4 text-green">Вставьте пропущенные слова из предложенных в текст</h1>
+      <h1 className="text-xl font-bold mb-4 text-green">
+      {EXERCISE_TYPE_TITLES[exercise.ExerciseType]}
+    </h1>
       <p className="text-black">{exercise.Question}</p>
   
-      <div className="flex flex-wrap gap-2 mt-10">
-        {answerOptions.map((option, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleWordClick(option)}
-            className="px-3 py-1 border border-gray rounded-md bg-gray text-black hover:bg-green hover:text-beige cursor-pointer"
-          >
-            {option}
-          </button>
-        ))}
-      </div>
+      {(exercise.ExerciseType === ExerciseType.InsertWordToText ||
+  exercise.ExerciseType === ExerciseType.MatchingWordAndItsTranslate ||
+  exercise.ExerciseType === ExerciseType.CreateSentence) && (
+  <div className="flex flex-wrap gap-2 mt-10">
+    {answerOptions.map((option, idx) => (
+      <button
+        key={idx}
+        onClick={() => handleWordClick(option)}
+        className="px-3 font-lora py-1 border border-gray rounded-md bg-gray text-black hover:bg-green hover:text-beige cursor-pointer"
+      >
+        {option}
+      </button>
+    ))}
+  </div>
+)}
   
       <div className="mt-6">
-        <h2 className="font-semibold mb-2 text-green">Ваш ответ:</h2>
-        <div className="flex flex-wrap gap-2">
-          {userAnswer.map((word, idx) => (
-            <span
-              key={idx}
-              className="flex items-center px-3 py-1 border border-gray rounded-full bg-white text-green"
-            >
-              {word}
-              <button
-                onClick={() => removeWord(word)}
-                className="ml-2 text-red-500 hover:text-red-700 cursor-pointer"
-              >
-                ✕
-              </button>
-            </span>
-          ))}
-        </div>
+        <h2 className="font-semibold mb-2 text-green">{t('answer')}</h2>
+        {(exercise.ExerciseType === ExerciseType.InsertWordToText ||
+  exercise.ExerciseType === ExerciseType.MatchingWordAndItsTranslate ||
+  exercise.ExerciseType === ExerciseType.CreateSentence) && (
+  <div className="flex flex-wrap gap-2">
+    {userAnswer.map((word, idx) => (
+      <span
+        key={idx}
+        className="flex font-lora items-center px-3 py-1 border border-gray rounded-full bg-white text-green"
+      >
+        {word}
+        <button
+          onClick={() => removeWord(word)}
+          className="ml-2 text-red-500 hover:text-red-700 cursor-pointer"
+        >
+          ✕
+        </button>
+      </span>
+    ))}
+  </div>
+)}
+
+{(exercise.ExerciseType === ExerciseType.WriteCzechWord ||
+  exercise.ExerciseType === ExerciseType.InsertWordInRightForm) && (
+<div>
+  <input
+      type="text"
+              value={userAnswerWord}
+              onChange={(e) => setUserAnswerWord(e.target.value)}
+      className="w-50 rounded border border-gray-300 px-2 py-1 text-sm shadow-sm focus:border-green focus:outline-none focus:ring-1 focus:ring-green"
+    />
+</div>)}
+
       </div>
   
       <div className="mt-6 flex gap-4">
@@ -182,34 +240,33 @@ export default function ExercisePage() {
           onClick={handleSaveAnswer}
           className="px-4 py-2 bg-green font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
         >
-          Сохранить ответ
+          {t('save')}
         </button>
         <button
           onClick={handleShowAnswer}
           className="px-4 py-2 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
         >
-          Посмотреть результат
+          {t('show')}
         </button>
+        {index!==null &&<button
+        className="px-4 py-2 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
+        onClick={handleNext}
+      >
+        {currentIndex + 1 < data.length ? t('next') : t('finish')}
+      </button>}
       </div>
   
       {isCorrect !== null && (
         <div className={`mt-4 font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-          {isCorrect ? "Правильно!" : "Неправильно"}
+          {isCorrect ? t('correct') : t('wrong')}
         </div>
       )}
   
       {showCorrectAnswer && (
         <div className="mt-2 text-gray-700">
-          <strong>Правильный ответ:</strong> {exercise.Answer}
+          <strong>{t('correct')}: </strong><span className="font-lora">{exercise.Answer}</span> 
         </div>
-      )}
-
-      {index!==null &&<button
-        className="mt-8 px-4 py-2 bg-blue-500 text-white rounded"
-        onClick={handleNext}
-      >
-        {currentIndex + 1 < data.length ? "Далее" : "Завершить"}
-      </button>}
+      )}     
       
     </div>
   );

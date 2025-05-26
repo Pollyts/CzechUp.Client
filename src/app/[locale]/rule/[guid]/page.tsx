@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation';
 import { UserRuleNote } from '../../../../../types';
+import { useTranslations } from 'next-intl';
+import { toast } from 'react-hot-toast';
+import Loading from '../../../../../components/Loading'
 
 const RulePage = () => {
   const { guid } = useParams();
@@ -10,6 +13,7 @@ const RulePage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [note, setNote] = useState<string>("");
+  const t = useTranslations('Rules');
 
   const jwtToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
@@ -68,13 +72,21 @@ const RulePage = () => {
         throw new Error("Failed to save the note.");
       }
 
-      alert("Изменения сохранены!");
+      toast((tToast) => (
+    <span className="text-md text-green">
+      {t('successSave')}
+    </span>
+  ), {
+    duration: 2000,
+  });
+
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Ошибка при сохранении.");
     }
   };
 
-  if (loading) return <div className="text-center py-4">Loading...</div>;
+  if (loading) {
+        return <Loading></Loading>;
+    }
   if (error) return <div className="text-center text-red-600 py-4">{error}</div>;
   if (!ruleNote) return <div className="text-center py-4">Rule not found.</div>;
 
@@ -85,11 +97,13 @@ const RulePage = () => {
       <h1 className="text-3xl font-semibold mb-6 text-black">{ruleNote.Rule.Name}</h1>
       
       <button
-        className="mb-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        className="px-4 py-2 mb-10 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
         onClick={() => window.open(`/rules/${rulePdfName}.pdf`, '_blank')}
       >
-        Посмотреть PDF
+        {t('open')}
       </button>
+
+      <h1 className="text-xl font-semibold mb-6 text-black">{t('notes')}</h1>
 
       <div className="mb-6">
         <textarea
@@ -101,9 +115,9 @@ const RulePage = () => {
 
       <button
         onClick={handleSave}
-        className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+        className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
       >
-        Сохранить
+        {t('save')}
       </button>
     </div>
   );

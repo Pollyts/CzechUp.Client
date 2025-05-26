@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { UserTag, TagTypeEnum } from '../../../../types';
+import { useTranslations } from 'next-intl';
 
 interface EditTagModalProps {
   tag: UserTag;
@@ -10,18 +11,17 @@ interface EditTagModalProps {
   jwtToken: string | null;
 }
 
-// Лейблы для enum
-const TAG_TYPE_LABELS: { [key in TagTypeEnum]: string } = {
-  [TagTypeEnum.Word]: "Слово",
-  [TagTypeEnum.Rule]: "Правило",
-  [TagTypeEnum.Topic]: "Тема",
-  [TagTypeEnum.Exercise]: "Упражнение",
-};
-
 const EditTagModal = ({ tag, onClose, onSave, jwtToken }: EditTagModalProps) => {
   const [editedTag, setEditedTag] = useState<UserTag>(tag);
   const [selectedTypes, setSelectedTypes] = useState<TagTypeEnum[]>([]);
+  const t = useTranslations('Tags');
 
+  const TAG_TYPE_LABELS: { [key in TagTypeEnum]: string } = {
+  [TagTypeEnum.Word]: t('word'),
+  // [TagTypeEnum.Rule]: t('rule'),
+  // [TagTypeEnum.Topic]: t('topic'),
+  [TagTypeEnum.Exercise]: t('exercise'),
+};
   useEffect(() => {
     // Инициализация выбранных типов из пропса tag
     const initialTypes = tag.TagTypes.map(tt => tt.TagTypeEnum);
@@ -61,14 +61,13 @@ const EditTagModal = ({ tag, onClose, onSave, jwtToken }: EditTagModalProps) => 
       onSave();
     } catch (err) {
       console.error(err);
-      alert("Ошибка при редактировании темы");
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">Редактировать тему</h2>
+        <h2 className="text-2xl font-semibold mb-4">{t('edit')}</h2>
 
         <input
           type="text"
@@ -78,13 +77,14 @@ const EditTagModal = ({ tag, onClose, onSave, jwtToken }: EditTagModalProps) => 
         />
 
         <div className="mb-4">
-          <p className="font-semibold mb-2">Типы:</p>
+          <p className="font-semibold mb-2">{t('types')}</p>
           <div className="flex flex-wrap gap-2">
             {Object.entries(TagTypeEnum)
               .filter(([key]) => isNaN(Number(key)))
               .map(([key, value]) => (
                 <label key={value} className="flex items-center gap-2">
                   <input
+                  className="cursor-pointer"
                     type="checkbox"
                     checked={selectedTypes.includes(value as unknown as TagTypeEnum)}
                     onChange={() => handleCheckboxChange(value as unknown as TagTypeEnum)}
@@ -98,15 +98,15 @@ const EditTagModal = ({ tag, onClose, onSave, jwtToken }: EditTagModalProps) => 
         <div className="flex justify-end gap-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+            className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Отмена
+            {t('cancel')}
           </button>
           <button
             onClick={handleUpdate}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 text-l mr-5 font-bold bg-green text-beige cursor-pointer rounded-lg hover:bg-gray border-2 border-green hover:text-green"
           >
-            Сохранить
+            {t('save')}
           </button>
         </div>
       </div>

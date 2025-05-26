@@ -17,7 +17,7 @@ const CreateWordModal = ({ jwtToken, onClose, onSave }: CreateWordModalProps) =>
     Guid: "00000000-0000-0000-0000-000000000000",
     Word: '',
     LanguageLevel: '',
-    Topic: '',
+    Topics: [''],
     Translations: [''],
     Tags: [''],
     WordForms: [],
@@ -235,7 +235,7 @@ const CreateWordModal = ({ jwtToken, onClose, onSave }: CreateWordModalProps) =>
 </div>
 
         <select
-          value={wordDto.Topic}
+          value={wordDto.Topics}
           onChange={(e) => setWordDto({ ...wordDto, Topic: e.target.value })}
           className="w-full p-2 border border-gray-300 rounded-lg"
         >

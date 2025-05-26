@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import {useTranslations} from 'next-intl';
 import { Link } from '../../../i18n/navigation';
 
-export default function LoginForm() {
-  const t = useTranslations('SignInForm');
+export default function AccountForm() {
+  const t = useTranslations('Account');
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -16,10 +16,12 @@ export default function LoginForm() {
     e.preventDefault();
     setError(null);
 
+    const jwtToken = localStorage.getItem("token");
+
     try {
-      const response = await fetch('https://localhost:44376/api/Auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch('https://localhost:44376/api/Auth/update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${jwtToken}`, },
         body: JSON.stringify({ Email, Password })
       });
 
@@ -45,7 +47,7 @@ export default function LoginForm() {
       {error && <p className="text-red-500 text-sm mb-2 text-center">{error}</p>}
 
       <h1 className="font-mulish text-2xl sm:text-3xl font-bold text-green text-center mb-6">
-        {t('signIn')}
+        {t('changeData')}
       </h1>
 
       <form onSubmit={handleLogin} className="flex flex-col gap-4">
@@ -68,26 +70,11 @@ export default function LoginForm() {
           type="submit"
           className="w-full bg-green text-beige py-3 cursor-pointer rounded hover:bg-green/80 transition-colors font-semibold"
         >
-          {t('signIn')}
+          {t('ok')}
         </button>
       </form>
-
-      <div className="text-center mt-5">
-        <Link
-          className="text-sm sm:text-base font-bold text-green hover:underline"
-          href="/registration"
-        >
-          {t('registration')}
-        </Link>
-      </div>
     </div>
 
-    <Link
-      className="text-xs text-green mt-4 hover:underline"
-      href="resetpassword"
-    >
-      {t('resetPassword')}
-    </Link>
   </div>
 );
 
